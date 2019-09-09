@@ -1,6 +1,7 @@
 {
   "name": "acebook",
   "version": "0.0.0",
+  "description": "Template for the AceBook project",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
