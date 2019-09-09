@@ -6,8 +6,9 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": "jest",
-    "cypress:run": "cypress run"
+    "test": "npm run test:unit && npm run test:integration",
+    "test:unit": "jest",
+    "test:integration": "cypress run"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
