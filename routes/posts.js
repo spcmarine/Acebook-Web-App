@@ -2,11 +2,9 @@ var express = require('express');
 var router = express.Router();
 var Post = require('../models/post.js')
 
-var posts = [];
-
 /* GET posts listing. */
 router.get('/', function(req, res, next) {
-  res.render('posts/index', { posts: posts });
+  res.render('posts/index', { posts: Post.all() });
 });
 
 /* GET new post form. */
@@ -17,7 +15,7 @@ router.get('/new', function(req, res, next) {
 /* POST create new post. */
 router.post('/', function(req, res, next) {
   var post = new Post(req.body.message);
-  posts.push(post);
+  post.save();
   res.status(201).redirect('/posts');
 });
 
