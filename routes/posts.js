@@ -1,22 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var Post = require('../models/post.js')
 
-/* GET posts listing. */
-router.get('/', function(req, res, next) {
-  res.render('posts/index', { posts: Post.all() });
-});
+var PostsController = require('../controllers/posts_controller.js')
 
-/* GET new post form. */
-router.get('/new', function(req, res, next) {
-  res.render('posts/new', {});
-});
-
-/* POST create new post. */
-router.post('/', function(req, res, next) {
-  var post = new Post(req.body.message);
-  post.save();
-  res.status(201).redirect('/posts');
-});
+router.get('/', PostsController.Index);
+router.post('/', PostsController.Create);
+router.get('/new', PostsController.New);
 
 module.exports = router;
