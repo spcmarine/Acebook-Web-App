@@ -20,5 +20,8 @@
   "devDependencies": {
     "cypress": "^3.4.1",
     "nodemon": "^1.19.2"
+  },
+  "nodemonConfig": {
+    "ext": "js,hbs"
   }
 }
