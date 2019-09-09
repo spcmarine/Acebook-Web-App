@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var Post = require('../models/post.js')
 
 var posts = [];
 
@@ -15,7 +16,7 @@ router.get('/new', function(req, res, next) {
 
 /* POST create new post. */
 router.post('/', function(req, res, next) {
-  var post = { message: req.body.message };
+  var post = new Post(req.body.message);
   posts.push(post);
   res.status(201).redirect('/posts');
 });
