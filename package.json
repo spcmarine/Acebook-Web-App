@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": "echo 'Error: no test specified' && exit 1",
+    "test": "jest",
     "cypress:run": "cypress run"
   },
   "dependencies": {
@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "cypress": "^3.4.1",
+    "jest": "^24.9.0",
     "nodemon": "^1.19.2"
   },
   "nodemonConfig": {
