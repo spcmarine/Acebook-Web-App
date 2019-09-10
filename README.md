@@ -26,6 +26,11 @@ This is a Node.js template for the Acebook engineering project.
     npm install
     ```
 1. Install an ESLint plugin for your editor. For example: [linter-eslint](https://github.com/AtomLinter/linter-eslint) for Atom.
+1. Install MongoDB
+    ```
+    brew cask install mongodb
+    ```
+    Then open the MongoDB application. A leaf icon should appear in the Menu Bar.
 
 ### Start
 
