@@ -1,15 +1,10 @@
-var posts = [];  // List of posts stored in memory for now
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var Post = function(message) {
-  this.message = message;
-};
+var PostSchema = new Schema({
+  message: String,
+});
 
-Post.prototype.save = function() {
-  posts.push(this);
-}
-
-Post.all = function() {
-  return posts;
-}
+var Post = mongoose.model('Post', PostSchema);
 
 module.exports = Post;
