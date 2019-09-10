@@ -46,17 +46,11 @@ This is a Node.js template for the Acebook engineering project.
     ```
     npm test
     ```
-* Run linter only
-    ```
-    npm run lint
-    ```
-* Run unit tests only
-    ```
-    npm run test:unit
-    ```
-* Run integration tests only
-    ```
-    npm run test:integration
+* Run a check
+    ```bash
+    npm run lint              # linter only
+    npm run test:unit         # unit tests only
+    npm run test:integration  # integration tests only
     ```
 
 #### Start test server
