@@ -1,17 +1,19 @@
 var Post = require('../../models/post.js');
 
-test('has a message', function() {
-  var post = new Post('some message');
-  expect(post.message).toEqual('some message');
-});
+describe('Post model', function() {
+  it('has a message', function() {
+    var post = new Post('some message');
+    expect(post.message).toEqual('some message');
+  });
 
-test('can list all posts', function() {
-  var posts = Post.all();
-  expect(posts).toEqual([]);
-});
+  it('can list all posts', function() {
+    var posts = Post.all();
+    expect(posts).toEqual([]);
+  });
 
-test('can save a post', function() {
-  var post = new Post('some message');
-  post.save();
-  expect(Post.all()).toContain(post);
+  it('can save a post', function() {
+    var post = new Post('some message');
+    post.save();
+    expect(Post.all()).toContain(post);
+  });
 });
