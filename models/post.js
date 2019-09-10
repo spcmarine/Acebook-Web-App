@@ -1,4 +1,4 @@
-var posts = [];
+var posts = [];  // List of posts stored in memory for now
 
 var Post = function(message) {
   this.message = message;
