@@ -1,4 +1,4 @@
-var Post = require('../../models/post.js');
+var Post = require('../../models/post');
 
 describe('Post model', function() {
   it('has a message', function() {
