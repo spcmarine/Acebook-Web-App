@@ -2,6 +2,17 @@
 
 This is a Node.js template for the Acebook engineering project.
 
+It uses:
+- [Express](https://expressjs.com/) web framework for Node.js.
+- [Handlebars](https://handlebarsjs.com/) to render view templates.
+- [Mongoose](https://mongoosejs.com) to model objects in MongoDB.
+- [Jest](https://jestjs.io/) for unit testing.
+- [Cypress](https://www.cypress.io/) for integration testing.
+
+## Card wall
+
+REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
+
 ## Quickstart
 
 ### Install Node.js
