@@ -42,12 +42,6 @@ This is a Node.js template for the Acebook engineering project.
 
 ### Test
 
-⚠️ The server must be running locally with test configuration for the Cypress
-integration tests to pass
-```
-npm run start:test
-```
-
 * Run all tests
     ```
     npm test
@@ -64,3 +58,13 @@ npm run start:test
     ```
     npm run test:integration
     ```
+
+#### Start test server
+
+The server must be running locally with test configuration for the
+integration tests to pass.
+```
+npm run start:test
+```
+This starts the server on port `3030` and uses the `acebook_test` MongoDB database,
+so that integration tests do not interact with the development server.
