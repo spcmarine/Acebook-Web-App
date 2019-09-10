@@ -40,7 +40,8 @@ app.use(function(err, req, res) {
 });
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost/acebook', {
+var mongoDbUrl = process.env.MONGODB_URL || 'mongodb://localhost/acebook';
+mongoose.connect(mongoDbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });

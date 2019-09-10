@@ -7,6 +7,7 @@
   "scripts": {
     "lint": "eslint .",
     "start": "nodemon ./bin/www",
+    "start:test": "PORT=3030 MONGODB_URL='mongodb://localhost/acebook_test' npm start",
     "test": "npm run lint && npm run test:unit && npm run test:integration",
     "test:unit": "jest",
     "test:integration": "cypress run"

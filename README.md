@@ -42,7 +42,11 @@ This is a Node.js template for the Acebook engineering project.
 
 ### Test
 
-ℹ️ The server must be running locally for the Cypress integration tests to pass.
+⚠️ The server must be running locally with test configuration for the Cypress
+integration tests to pass
+```
+npm run start:test
+```
 
 * Run all tests
     ```
