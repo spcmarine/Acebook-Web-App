@@ -25,6 +25,7 @@ This is a Node.js template for the Acebook engineering project.
     ```bash
     npm install
     ```
+1. Install an ESLint plugin for your editor. For example: [linter-eslint](https://github.com/AtomLinter/linter-eslint) for Atom.
 
 ### Start
 
@@ -42,7 +43,10 @@ This is a Node.js template for the Acebook engineering project.
     ```bash
     npm test
     ```
-
+* Run linter only
+    ```bash
+    npm run lint
+    ```
 * Run unit tests only
     ```bash
     npm run test:unit
