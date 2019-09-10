@@ -1,5 +1,6 @@
-require('../mongodb_helper')
 var mongoose = require('mongoose');
+
+require('../mongodb_helper')
 var Post = require('../../models/post');
 
 describe('Post model', function() {
