@@ -33,6 +33,7 @@ REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
 ### Set up your project
 
 1. Fork this repository
+1. Rename your fork to `acebook-<team name>`
 1. Clone your fork to your local machine
 1. Install Node.js dependencies
     ```
