@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('acebook:server');
 var http = require('http');
+var mongoose = require('mongoose');
 
 /**
  * Get port from environment and store in Express.
@@ -14,6 +15,19 @@ var http = require('http');
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
+
+/**
+ * Connect to MongoDB
+ **/
+
+ var mongoDbUrl = process.env.MONGODB_URL || 'mongodb://localhost/acebook';
+ mongoose.connect(mongoDbUrl, {
+   useNewUrlParser: true,
+   useUnifiedTopology: true
+ });
+
+ var db = mongoose.connection;
+ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 /**
  * Create HTTP server.

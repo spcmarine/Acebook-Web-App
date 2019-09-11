@@ -3,7 +3,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var mongoose = require('mongoose');
 
 var homeRouter = require('./routes/home');
 var postsRouter = require('./routes/posts');
@@ -38,15 +37,5 @@ app.use(function(err, req, res) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-// MongoDB connection
-var mongoDbUrl = process.env.MONGODB_URL || 'mongodb://localhost/acebook';
-mongoose.connect(mongoDbUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 module.exports = app;
