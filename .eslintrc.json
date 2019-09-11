@@ -6,7 +6,10 @@
         "jest/globals": true,
         "cypress/globals": true
     },
-    "extends": "eslint:recommended",
+    "extends": [
+      "eslint:recommended",
+      "plugin:node/recommended"
+    ],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -16,7 +19,8 @@
     },
     "plugins": [
       "cypress",
-      "jest"
+      "jest",
+      "node"
     ],
     "rules": {
     }
