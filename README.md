@@ -42,9 +42,13 @@ REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
 1. Install an ESLint plugin for your editor. For example: [linter-eslint](https://github.com/AtomLinter/linter-eslint) for Atom.
 1. Install MongoDB
     ```
-    brew cask install mongodb
+    brew tap mongodb/brew
+    brew install mongodb-community@4.2
     ```
-    Then open the MongoDB application. A leaf icon should appear in the Menu Bar.
+1. Start MongoDB
+    ```
+    brew services start mongodb-community@4.2
+    ```
 
 ### Start
 
