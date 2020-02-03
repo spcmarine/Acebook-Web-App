@@ -25,9 +25,9 @@ REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
     ```
     Then follow the instructions to update your `~/.bash_profile`.
 1. Open a new terminal
-1. Install the latest long term support (LTS) version of Node.js, currently `10.16.3`.
+1. Install the latest long term support (LTS) version of [Node.js](https://nodejs.org/en/), currently `12.14.1`.
     ```
-    nvm install 10.16.3
+    nvm install 12.14.1
     ```
 
 ### Set up your project
