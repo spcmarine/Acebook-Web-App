@@ -24,8 +24,8 @@ REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
     brew install nvm
     ```
     Then follow the instructions to update your `~/.bash_profile`.
-1. Open a new terminal
-1. Install the latest long term support (LTS) version of [Node.js](https://nodejs.org/en/), currently `12.14.1`.
+2. Open a new terminal
+3. Install the latest long term support (LTS) version of [Node.js](https://nodejs.org/en/), currently `12.14.1`.
     ```
     nvm install 12.14.1
     ```
@@ -33,19 +33,19 @@ REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
 ### Set up your project
 
 1. Fork this repository
-1. Rename your fork to `acebook-<team name>`
-1. Clone your fork to your local machine
-1. Install Node.js dependencies
+2. Rename your fork to `acebook-<team name>`
+3. Clone your fork to your local machine
+4. Install Node.js dependencies
     ```
     npm install
     ```
-1. Install an ESLint plugin for your editor. For example: [linter-eslint](https://github.com/AtomLinter/linter-eslint) for Atom.
-1. Install MongoDB
+5. Install an ESLint plugin for your editor. For example: [linter-eslint](https://github.com/AtomLinter/linter-eslint) for Atom.
+6. Install MongoDB
     ```
     brew tap mongodb/brew
     brew install mongodb-community@4.2
     ```
-1. Start MongoDB
+7. Start MongoDB
     ```
     brew services start mongodb-community@4.2
     ```
@@ -56,7 +56,7 @@ REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
     ```
     npm start
     ```
-1. Browse to [http://localhost:3000](http://localhost:3000)
+2. Browse to [http://localhost:3000](http://localhost:3000)
 
 ### Test
 
@@ -80,3 +80,14 @@ npm run start:test
 ```
 This starts the server on port `3030` and uses the `acebook_test` MongoDB database,
 so that integration tests do not interact with the development server.
+
+## MongoDB Connection Errors?
+
+Some people occasionally experience MongoDB connection errors when running the tests or trying to use the application. Here are some tips which might help resolve such issues.
+
+* Check that MongoDB is installed using `mongo --version`
+* Check that it's running using `brew services list`
+* Try swapping `localhost`, everywhere that it appears in your codebase, with `127.0.0.1`. It might be surprising but this does sometimes make a difference.
+
+If you have issues that are not resolved by these tips, please reach out to a coach and, once the issue is resolved, we can add a new tip!
+
