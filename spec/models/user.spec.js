@@ -1,43 +1,55 @@
-var mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-require('../mongodb_helper')
-var User = require('../../models/user');
+require("../mongodb_helper");
+const User = require("../../models/user");
 
-describe('User model', function() {
-  beforeEach(function(done) {
-      mongoose.connection.collections.users.drop(function() {
-          done();
-      });
+describe("User model", () => {
+  beforeEach((done) => {
+    mongoose.connection.collections.users.drop(() => {
+      done();
+    });
   });
 
-  it('has an email address', function() {
-    var user = new User({email: 'someone@example.com', password: 'password' });
-    expect(user.email).toEqual('someone@example.com');
+  it("has an email address", () => {
+    const user = new User({
+      email: "someone@example.com",
+      password: "password",
+    });
+    expect(user.email).toEqual("someone@example.com");
   });
 
-  it('has a password', function() {
-    var user = new User({email: 'someone@example.com', password: 'password' });
-    expect(user.password).toEqual('password');
+  it("has a password", () => {
+    const user = new User({
+      email: "someone@example.com",
+      password: "password",
+    });
+    expect(user.password).toEqual("password");
   });
 
-  it('can list all users', function(done) {
-    User.find(function(err, users) {
+  it("can list all users", (done) => {
+    User.find((err, users) => {
       expect(err).toBeNull();
       expect(users).toEqual([]);
       done();
     });
   });
 
-  it('can save a user', function(done) {
-    var user = new User({email: 'someone@example.com', password: 'password' });
+  it("can save a user", (done) => {
+    const user = new User({
+      email: "someone@example.com",
+      password: "password",
+    });
 
-    user.save(function(err) {
+    user.save((err) => {
       expect(err).toBeNull();
 
-      User.find(function(err, users) {
+      User.find((err, users) => {
         expect(err).toBeNull();
 
-        expect(users[0]).toMatchObject({email: 'someone@example.com', password: 'password' });
+        expect(users[0]).toMatchObject({
+          email: "someone@example.com",
+          password: "password",
+        });
         done();
       });
     });
