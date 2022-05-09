@@ -44,12 +44,12 @@ REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
 6. Install MongoDB
    ```
    brew tap mongodb/brew
-   brew install mongodb-community@4.4
+   brew install mongodb-community@5.0
    ```
-   *Note:* If you see a message that says `If you need to have mongodb-community@4.4 first in your PATH, run:`, follow the instruction and run the following command. Restart your terminal after this.
+   *Note:* If you see a message that says `If you need to have mongodb-community@5.0 first in your PATH, run:`, follow the instruction. Restart your terminal after this.
 7. Start MongoDB
    ```
-   brew services start mongodb-community@4.4
+   brew services start mongodb-community@5.0
    ```
 
 ### Start
@@ -59,6 +59,18 @@ REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
    npm start
    ```
 2. Browse to [http://localhost:3000](http://localhost:3000)
+
+#### Start test server
+
+The server must be running locally with test configuration for the
+integration tests to pass.
+
+```
+npm run start:test
+```
+
+This starts the server on port `3030` and uses the `acebook_test` MongoDB database,
+so that integration tests do not interact with the development server.
 
 ### Test
 
@@ -72,18 +84,6 @@ REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
   npm run test:unit         # unit tests only
   npm run test:integration  # integration tests only
   ```
-
-#### Start test server
-
-The server must be running locally with test configuration for the
-integration tests to pass.
-
-```
-npm run start:test
-```
-
-This starts the server on port `3030` and uses the `acebook_test` MongoDB database,
-so that integration tests do not interact with the development server.
 
 ## MongoDB Connection Errors?
 
