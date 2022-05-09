@@ -26,9 +26,9 @@ REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
    ```
    Then follow the instructions to update your `~/.bash_profile`.
 2. Open a new terminal
-3. Install the latest long term support (LTS) version of [Node.js](https://nodejs.org/en/), currently `16.14.0`.
+3. Install the latest version of [Node.js](https://nodejs.org/en/), currently `18.1.0`.
    ```
-   nvm install 16
+   nvm install 18
    ```
 
 ### Set up your project
@@ -46,6 +46,7 @@ REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
    brew tap mongodb/brew
    brew install mongodb-community@4.4
    ```
+   *Note:* If you see a message that says `If you need to have mongodb-community@4.4 first in your PATH, run:`, follow the instruction and run the following command.
 7. Start MongoDB
    ```
    brew services start mongodb-community@4.4
