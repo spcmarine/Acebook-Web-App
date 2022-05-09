@@ -13,7 +13,7 @@
     "test:integration": "cypress run"
   },
   "engines": {
-    "node": ">=16.14.0"
+    "node": ">=18.1.0"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
