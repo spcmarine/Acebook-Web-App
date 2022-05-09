@@ -1,20 +1,20 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
-beforeAll(function(done) {
-  mongoose.connect('mongodb://localhost/acebook_test', {
+beforeAll(function (done) {
+  mongoose.connect("mongodb://0.0.0.0/acebook_test", {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   });
 
   var db = mongoose.connection;
-  db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-  db.on('open', function() {
+  db.on("error", console.error.bind(console, "MongoDB connection error:"));
+  db.on("open", function () {
     done();
   });
 });
 
-afterAll(function(done) {
-  mongoose.connection.close(true, function() {
+afterAll(function (done) {
+  mongoose.connection.close(true, function () {
     done();
   });
 });
