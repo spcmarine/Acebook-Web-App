@@ -7,11 +7,8 @@ const PostsController = {
         throw err;
       }
 
-      res.render("posts/index", { posts: posts });
+      res.status(200).json({ posts: posts });
     });
-  },
-  New: (req, res) => {
-    res.render("posts/new", {});
   },
   Create: (req, res) => {
     const post = new Post(req.body);
@@ -20,7 +17,7 @@ const PostsController = {
         throw err;
       }
 
-      res.status(201).redirect("/posts");
+      res.status(201).json({ message: 'OK' });
     });
   },
 };
