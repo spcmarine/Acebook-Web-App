@@ -1,16 +1,26 @@
 # Acebook
+## Technologies
 
-This is a Node.js template for the Acebook engineering project.
+Use this section for reference, when you're trying to get stuff done - don't read through all the docs right now, all in one go!
 
-It uses:
+This template was built using the MERN stack, which has become quite popular in recent years...
 
-- [Express](https://expressjs.com/) web framework for Node.js.
-- [Nodemon](https://nodemon.io/) to reload the server automatically.
-- [Handlebars](https://handlebarsjs.com/) to render view templates.
-- [Mongoose](https://mongoosejs.com) to model objects in MongoDB.
-- [ESLint](https://eslint.org) for linting.
-- [Jest](https://jestjs.io/) for testing.
+- **M** is for [MongoDB](https://www.mongodb.com/)
+- **E** is for [Express](https://expressjs.com/)
+- **R** is for [React](https://reactjs.org/)
+- **N** is for [Node](https://nodejs.org/en/)
+
+It also uses:
+
+- [Jest](https://jestjs.io/) for unit testing.
 - [Cypress](https://www.cypress.io/) for end-to-end testing.
+- [Mongoose](https://mongoosejs.com) to model objects in MongoDB.
+- [Handlebars](https://handlebarsjs.com/) for the `home` template.
+- [ESLint](https://eslint.org) for linting.
+- [Nodemon](https://nodemon.io/) to reload the server automatically.
+
+## Architecture
+
 
 ## Card wall
 
@@ -56,7 +66,7 @@ REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
 
 1. Start the server
    ```
-   npm start
+   JWT_SECRET=SUPER_SECRET npm start
    ```
 2. Browse to [http://localhost:3000](http://localhost:3000)
 
@@ -66,7 +76,7 @@ The server must be running locally with test configuration for the
 integration tests to pass.
 
 ```
-npm run start:test
+JWT_SECRET=SUPER_SECRET npm run start:test
 ```
 
 This starts the server on port `3030` and uses the `acebook_test` MongoDB database,
@@ -76,12 +86,12 @@ so that integration tests do not interact with the development server.
 
 - Run all tests
   ```
-  npm test
+  JWT_SECRET=SUPER_SECRET npm test
   ```
 - Run a check
   ```bash
   npm run lint              # linter only
-  npm run test:unit         # unit tests only
+  JWT_SECRET=SUPER_SECRET npm run test:unit         # unit tests only
   npm run test:integration  # integration tests only
   ```
 

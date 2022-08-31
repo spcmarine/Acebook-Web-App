@@ -1,17 +1,18 @@
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
-const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const session = require("express-session");
-const methodOverride = require("method-override");
+const JWT = require("jsonwebtoken");
 
 const homeRouter = require("./routes/home");
 const postsRouter = require("./routes/posts");
-const sessionsRouter = require("./routes/sessions");
+const tokensRouter = require("./routes/tokens");
 const usersRouter = require("./routes/users");
 
 const app = express();
+
+// setup for receiving JSON
+app.use(express.json())
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -19,40 +20,24 @@ app.set("view engine", "hbs");
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(methodOverride("_method"));
-
-app.use(
-  session({
-    key: "user_sid",
-    secret: "super_secret",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      expires: 600000,
-    },
-  })
-);
-
-// clear the cookies after user logs out
-app.use((req, res, next) => {
-  if (req.cookies.user_sid && !req.session.user) {
-    res.clearCookie("user_sid");
-  }
-  next();
-});
 
 // middleware function to check for valid tokens
 const tokenChecker = (req, res, next) => {
-  next();
+  try {
+    const payload = JWT.verify(req.body.token, process.env.JWT_SECRET);
+    req.user_id = payload.user_id;
+    next();
+  } catch(err) {
+    console.log(err);
+    res.status(401).json({message: "auth error"});
+  }
 };
 
 // route setup
 app.use("/", homeRouter);
 app.use("/posts", tokenChecker, postsRouter);
-app.use("/sessions", sessionsRouter);
+app.use("/tokens", tokensRouter);
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler

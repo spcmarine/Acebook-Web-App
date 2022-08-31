@@ -22,11 +22,14 @@
     "express-session": "^1.17.2",
     "hbs": "^4.1.0",
     "http-errors": "~1.6.3",
+    "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
     "mongodb": "^3.4.1",
     "mongoose": "^5.8.11",
     "morgan": "~1.9.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "superagent": "^8.0.0",
+    "supertest": "^6.2.4"
   },
   "devDependencies": {
     "cypress": "^9.5.1",
