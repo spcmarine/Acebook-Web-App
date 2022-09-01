@@ -5,15 +5,10 @@ require("../mongodb_helper");
 const User = require('../../models/user');
 
 describe("/tokens", () => {
-  beforeEach((done) => {
+  beforeEach( async () => {
+    await mongoose.connection.collections.users.drop(() => {});
     const user = new User({email: "test@test.com", password: "12345678"})
-    user.save(() => { done() })
-  });
-
-  afterEach((done) => {
-    mongoose.connection.collections.users.drop(() => {
-      done();
-    });
+    await user.save()
   });
 
   test("a token is returned when creds are valid", done => {
