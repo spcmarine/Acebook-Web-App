@@ -4,9 +4,9 @@ require("../mongodb_helper");
 const User = require('../../models/user');
 
 describe("/tokens", () => {
-  beforeAll( async () => {
+  beforeAll( () => {
     const user = new User({ email: "test@test.com", password: "12345678" })
-    await user.save()
+    user.save()
   });
 
   afterAll( async () => {
@@ -17,8 +17,8 @@ describe("/tokens", () => {
     let response = await request(app)
       .post("/tokens")
       .send({email: "test@test.com", password: "12345678"})
-    expect(response.body.token).not.toEqual(undefined)
     expect(response.status).toEqual(201)
+    expect(response.body.token).not.toEqual(undefined)
     expect(response.body.message).toEqual("OK")
   })
 
@@ -27,8 +27,8 @@ describe("/tokens", () => {
     let response = await request(app)
       .post("/tokens")
       .send({email: "test@test.com", password: "1234"})
-    expect(response.body.token).toEqual(undefined)
     expect(response.status).toEqual(401)
+    expect(response.body.token).toEqual(undefined)
     expect(response.body.message).toEqual("auth error")
   })
 })
