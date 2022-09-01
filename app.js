@@ -29,7 +29,6 @@ const tokenChecker = (req, res, next) => {
     req.user_id = payload.user_id;
     next();
   } catch(err) {
-    console.log(err);
     res.status(401).json({message: "auth error"});
   }
 };

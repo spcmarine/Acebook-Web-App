@@ -1,10 +1,9 @@
 const User = require("../models/user");
-const JWT = require("jsonwebtoken");
+const TokenGenerator = require("../models/token_generator")
 
 const SessionsController = {
 
   Create: (req, res) => {
-
     const email = req.body.email;
     const password = req.body.password;
 
@@ -14,7 +13,7 @@ const SessionsController = {
       } else if (user.password != password) {
         res.status(401).json({ message: "auth error" });
       } else {
-        const token = JWT.sign({ user_id: user.id }, process.env.JWT_SECRET, {expiresIn: "1h"});
+        const token = TokenGenerator.jsonwebtoken(user.id)
         res.status(200).json({token: token, message: "OK"});
       }
     });

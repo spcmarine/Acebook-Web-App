@@ -17,6 +17,20 @@ describe("/tokens", () => {
       .send({email: "test@test.com", password: "12345678"})
       .then(response => {
         expect(response.body.token).not.toEqual(undefined)
+        expect(response.status).toEqual(200)
+        expect(response.body.message).toEqual("OK")
+        done();
+      })
+  })
+
+  test("a token is not returned when creds are invalid", done => {
+    request(app)
+      .post("/tokens")
+      .send({email: "test@test.com", password: "1234"})
+      .then(response => {
+        expect(response.body.token).toEqual(undefined)
+        expect(response.status).toEqual(401)
+        expect(response.body.message).toEqual("auth error")
         done();
       })
   })

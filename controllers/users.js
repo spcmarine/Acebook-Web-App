@@ -5,7 +5,6 @@ const UsersController = {
     const user = new User(req.body);
     user.save((err) => {
       if (err) {
-        console.log(err)
         res.status(400).json({message: 'Bad request'})
       } else {
         res.status(201).json({ message: 'OK' });
