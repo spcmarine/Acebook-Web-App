@@ -18,7 +18,7 @@ describe("/tokens", () => {
       .post("/tokens")
       .send({email: "test@test.com", password: "12345678"})
     expect(response.body.token).not.toEqual(undefined)
-    expect(response.status).toEqual(200)
+    expect(response.status).toEqual(201)
     expect(response.body.message).toEqual("OK")
   })
 
