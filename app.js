@@ -24,13 +24,14 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // middleware function to check for valid tokens
 const tokenChecker = (req, res, next) => {
-  try {
-    const payload = JWT.verify(req.body.token, process.env.JWT_SECRET);
-    req.user_id = payload.user_id;
-    next();
-  } catch(err) {
-    res.status(401).json({message: "auth error"});
-  }
+  JWT.verify(req.body.token, process.env.JWT_SECRET, (err, payload) => {
+    if(err) {
+      res.status(401).json({message: "auth error"});
+    } else {
+      req.user_id = payload.user_id;
+      next();
+    }
+  });
 };
 
 // route setup
