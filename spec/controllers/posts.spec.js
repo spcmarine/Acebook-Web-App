@@ -8,6 +8,7 @@ let token;
 
 describe("/posts", () => {
   beforeAll( async () => {
+    await Post.deleteMany({})
     const user = new User({email: "test@test.com", password: "12345678"});
     await user.save();
     token = TokenGenerator.jsonwebtoken(user.id);
@@ -18,19 +19,23 @@ describe("/posts", () => {
     await Post.deleteMany({})
   })
 
-  test("POST => responds with a 201, when token is valid", async () => {
+  test("POST => responds with a 201 and creates a post, when token is present", async () => {
     let response = await request(app)
       .post("/posts")
       .send({ message: "hello world", token: token })
     expect(response.status).toEqual(201);
-    let posts = await Post.find();
-    console.log("posts ", posts);
+    let posts = await Post.find()
+    expect(posts.length).toEqual(1)
+    expect(posts[posts.length - 1].message).toEqual("hello world")
   });
 
-  test("POST => responds with a 401, when token is missing", async () => {
+  test("POST => responds with a 401 and a post is not created, when token is missing", async () => {
     let response = await request(app)
       .post("/posts")
       .send({ message: "hello again world" })
     expect(response.status).toEqual(401);
+    let posts = await Post.find()
+    expect(posts.length).toEqual(1)
+    expect(posts[posts.length - 1].message).toEqual("hello world")
   });
 });
