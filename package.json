@@ -5,6 +5,11 @@
   "license": "CC BY-NC-SA",
   "private": true,
   "scripts": {
+    "server": "nodemon ./api/bin/www",
+    "client": "cd client && npm run start",
+    "build:client": "cd client && npm run build",
+    "iall": "npm i && cd client && npm i",
+    "startboth": "npm run server & npm run client",
     "lint": "eslint .",
     "start": "nodemon ./api/bin/www",
     "start:test": "PORT=3030 MONGODB_URL='mongodb://0.0.0.0/acebook_test' npm start",
