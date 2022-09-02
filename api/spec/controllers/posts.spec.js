@@ -32,7 +32,7 @@ describe("/posts", () => {
     });
   
     test("creates a new post", async () => {
-      let response = await request(app)
+      await request(app)
         .post("/posts")
         .send({ message: "hello world", token: token });
       let posts = await Post.find();
@@ -59,7 +59,7 @@ describe("/posts", () => {
     });
   
     test("a post is not created", async () => {
-      let response = await request(app)
+      await request(app)
         .post("/posts")
         .send({ message: "hello again world" });
       let posts = await Post.find();
@@ -83,7 +83,7 @@ describe("/posts", () => {
       let response = await request(app)
         .get("/posts")
         .send({token: token});
-      messages = response.body.posts.map((post) => ( post.message ));
+      let messages = response.body.posts.map((post) => ( post.message ));
       expect(messages).toEqual(["howdy!", "hola!"]);
     })
 

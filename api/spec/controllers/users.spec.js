@@ -17,11 +17,11 @@ describe("/users", () => {
     })
 
     test("a user is created", async () => {
-      let response = await request(app)
+      await request(app)
         .post("/users")
         .send({email: "scarlett@email.com", password: "1234"})
       let users = await User.find()
-      newUser = users[users.length - 1]
+      let newUser = users[users.length - 1]
       expect(newUser.email).toEqual("scarlett@email.com")
     })
   })
@@ -35,7 +35,7 @@ describe("/users", () => {
     });
 
     test("does not create a user", async () => {
-      let response = await request(app)
+      await request(app)
         .post("/users")
         .send({email: "skye@email.com"})
         let users = await User.find()
@@ -52,7 +52,7 @@ describe("/users", () => {
     });
 
     test("does not create a user", async () => {
-      let response = await request(app)
+      await request(app)
         .post("/users")
         .send({password: "1234"})
       let users = await User.find()
