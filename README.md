@@ -37,14 +37,12 @@ We also used...
 
 This application is comprised of two distinct pieces.
 
-- An API built with Express
+- An backend API built with Express
 - A front end built with React
 
-This Architectural pattern is quite popular because it allows teams to build multiple front ends, all of which use the same backend API. For example, you could go on to build a mobile app which uses the same API as your React front end.
+This architectural pattern is quite popular because it allows teams to build multiple front ends, all of which use the same backend API. You could, for example, go on to build a mobile app without needing to create another backend API.
 
-The React front end sends HTTP requests to the API and receives JSON in response.
-
-For example, the React front end would send this request to retrieve the entire `Post` collection.
+The React front end sends HTTP requests to the backend API and receives JSON in response. For example, the React front end would send this request to retrieve the entire `Post` collection.
 
 ```
 GET "/posts"
@@ -87,8 +85,10 @@ Here's the authentication flow for this application
 3. If a user is found, the password in the database is compared to the password that was submitted.
 4. If the passwords match, a JSON Web Token is generated and returned, as part of the response.
 5. The React front end receives the token and holds on to it.
-6. Every request to `"/posts"` must include a valid token (which is checked by the Express backend).
+6. Every request to `"/posts"` must include a valid token (which is checked by the backend).
 7. When the user logs out, the front end discards the token.
+
+The current implementation is not without vulnerabilities - can you find any?
 
 ### What is a JSON Web Token?
 
