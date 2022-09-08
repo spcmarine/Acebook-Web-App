@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-const LogInForm = () => {
-
-  const navigate = useNavigate();
+const LogInForm = ({ navigate }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,8 +16,10 @@ const LogInForm = () => {
     })
 
     if(response.status != 201) {
+      console.log("yay")
       navigate('/login')
     } else {
+      console.log("oop")
       let data = await response.json()
       window.localStorage.setItem("token", data.token)
       navigate('/posts');
@@ -37,16 +36,10 @@ const LogInForm = () => {
 
 
     return (
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input id="email" type='text' value={ email } onChange={handleEmailChange} />
-        </label>
-        <label>
-          Password:
-          <input id="password" type='password' value={ password } onChange={handlePasswordChange} />
-        </label>
-        <input id='submit' type="submit" value="Submit" />
+      <form role='form' onSubmit={handleSubmit}>
+        <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} />
+        <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} />
+        <input role='submit-button' id='submit' type="submit" value="Submit" />
       </form>
     );
 }

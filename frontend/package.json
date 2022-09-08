@@ -19,7 +19,7 @@
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "npm run test:unit && npm run test:feature",
-    "test:unit": "react-scripts test",
+    "test:unit": "cypress run --component",
     "test:feature": "cypress run",
     "eject": "react-scripts eject"
   },

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-const SignUpForm = () => {
+const SignUpForm = ({ navigate }) => {
 
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -37,14 +35,8 @@ const SignUpForm = () => {
 
     return (
       <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input id="email" type='text' value={ email } onChange={handleEmailChange} />
-        </label>
-        <label>
-          Password:
-          <input id="password" type='password' value={ password } onChange={handlePasswordChange} />
-        </label>
+          <input placeholder="Email" id="email" type='text' value={ email } onChange={handleEmailChange} />
+          <input placeholder="Password" id="password" type='password' value={ password } onChange={handlePasswordChange} />
         <input id='submit' type="submit" value="Submit" />
       </form>
     );

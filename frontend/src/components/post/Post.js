@@ -2,7 +2,7 @@ import React from 'react';
 
 const Post = ({post}) => {
   return(
-    <li role="post" key={ post._id }>{ post.message }</li>
+    <article data-cy="post" role="article" key={ post._id }>{ post.message }</article>
   )
 }
 
