@@ -15,7 +15,7 @@ const LogInForm = ({ navigate }) => {
       body: JSON.stringify({ email: email, password: password })
     })
 
-    if(response.status != 201) {
+    if(response.status !== 201) {
       console.log("yay")
       navigate('/login')
     } else {
@@ -36,7 +36,7 @@ const LogInForm = ({ navigate }) => {
 
 
     return (
-      <form role='form' onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} />
         <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} />
         <input role='submit-button' id='submit' type="submit" value="Submit" />
