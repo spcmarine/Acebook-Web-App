@@ -27,6 +27,7 @@ describe("/posts", () => {
     test("responds with a 201", async () => {
       let response = await request(app)
         .post("/posts")
+        .set("Authorization", `Bearer ${token}`)
         .send({ message: "hello world", token: token });
       expect(response.status).toEqual(201);
     });
@@ -34,6 +35,7 @@ describe("/posts", () => {
     test("creates a new post", async () => {
       await request(app)
         .post("/posts")
+        .set("Authorization", `Bearer ${token}`)
         .send({ message: "hello world", token: token });
       let posts = await Post.find();
       expect(posts.length).toEqual(1);
@@ -43,6 +45,7 @@ describe("/posts", () => {
     test("returns a new token", async () => {
       let response = await request(app)
         .post("/posts")
+        .set("Authorization", `Bearer ${token}`)
         .send({ message: "hello world", token: token })
       let newPayload = JWT.decode(response.body.token, process.env.JWT_SECRET);
       let originalPayload = JWT.decode(token, process.env.JWT_SECRET);
@@ -82,6 +85,7 @@ describe("/posts", () => {
       await post2.save();
       let response = await request(app)
         .get("/posts")
+        .set("Authorization", `Bearer ${token}`)
         .send({token: token});
       let messages = response.body.posts.map((post) => ( post.message ));
       expect(messages).toEqual(["howdy!", "hola!"]);
@@ -94,6 +98,7 @@ describe("/posts", () => {
       await post2.save();
       let response = await request(app)
         .get("/posts")
+        .set("Authorization", `Bearer ${token}`)
         .send({token: token});
       expect(response.status).toEqual(200);
     })
@@ -105,6 +110,7 @@ describe("/posts", () => {
       await post2.save();
       let response = await request(app)
         .get("/posts")
+        .set("Authorization", `Bearer ${token}`)
         .send({token: token});
       let newPayload = JWT.decode(response.body.token, process.env.JWT_SECRET);
       let originalPayload = JWT.decode(token, process.env.JWT_SECRET);
