@@ -1,6 +1,16 @@
 # Acebook
 
 In this project, you are tasked with working on an existing application. A significant part of the challenge will be to familiarise yourself with the codebase you've inherited, as you work to **improve and extend** it.
+
+## Videos
+
+These videos complement the docs below.
+
+* [An overview of the app](https://youtu.be/meTABGgrO2c)
+* [The backend (api)](https://youtu.be/mFczOzWW3vo)
+* [Postman](https://youtu.be/VO_kinuJngA)
+* [The frontend (react)]()
+
 ## Existing Features
 
 It's already possible for a user to:
