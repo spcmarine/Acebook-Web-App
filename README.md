@@ -1,13 +1,25 @@
 # Acebook
 
-For this project, you are tasked with working on an existing application. A significant part of the challenge will be to familiarise yourself with the existing codebase, as you work to **improve and extend** it.
+In this project, you are tasked with working on an existing application. A significant part of the challenge will be to familiarise yourself with the codebase you've inherited, as you work to **improve and extend** it.
+
+## Videos
+
+These videos complement the docs below.
+
+* [An overview of the app](https://youtu.be/meTABGgrO2c)
+* [The backend (api)](https://youtu.be/mFczOzWW3vo)
+* [Postman](https://youtu.be/VO_kinuJngA)
+* [The frontend (react)]()
+
 ## Existing Features
 
 It's already possible for a user to:
 - Sign up
 - Sign in
 - Sign out
-- Create a post
+- View a list of posts
+
+At the moment, it's not possible to create posts via the user interface but there are some failing tests for that feature, so it's a good place to start you work.
 ## Technologies
 
 Here's an overview of the technologies used to build this template application. You don't need to do a deep dive on each one right now. Instead, try to get a feeling for the big picture and then dive into the details when a specific task pushes you in that direction.
@@ -26,8 +38,8 @@ Java script was originally designed to run exclusively in browsers, such as Chro
 
 We also used...
 
-- [Jest](https://jestjs.io/) for unit testing.
-- [Cypress](https://www.cypress.io/) for end-to-end testing.
+- [Jest](https://jestjs.io/) for unit testing on the back end
+- [Cypress](https://www.cypress.io/) for end-to-end testing and component testing, on the front end
 - [Mongoose](https://mongoosejs.com) to model objects in MongoDB.
 - [Handlebars](https://handlebarsjs.com/) for the `home` template.
 - [ESLint](https://eslint.org) for linting.
@@ -40,15 +52,15 @@ This application is comprised of two distinct pieces.
 - An backend API built with Express
 - A front end built with React
 
-This architectural pattern is quite popular because it allows teams to build multiple front ends, all of which use the same backend API. You could, for example, go on to build a mobile app without needing to create another backend API.
+The React front end sends HTTP requests to the backend API and receives JSON in response body, rather than a whole page of HTML.
 
-The React front end sends HTTP requests to the backend API and receives JSON in response. For example, the React front end would send this request to retrieve the entire `Post` collection.
+For example, the React front end would send this request to retrieve the entire `Post` collection.
 
 ```
 GET "/posts"
 ```
 
-And the JSON response would look something like this.
+And the body of the response would look like this.
 
 ```
 {
@@ -72,11 +84,21 @@ And the JSON response would look something like this.
 }
 ```
 
-The React front end then uses this data to render `Post` _components_ on the page.
+Here's a diagram of the above
+<br>
+<br>
+![a diagram of the mern stack](./diagrams/mern_stack.png)
+<br>
+<br>
 
+Once recieved by the React FE, the JSON in the response body is used to render a list of posts on the page.
+
+![reponse body mapped onto a page](./diagrams/response_parsing.png)
+
+This architectural pattern is quite popular because it allows teams to build multiple front ends, all of which use the same backend API. You could, for example, go on to build a mobile app without needing to create another backend API.
 ## Authentication
 
-Up until now, if you've implemented authentication, it will likely have been done using sessions - this is a useful point of comparison but probably won't help an awful lot when it comes to understanding how authentication is done here.
+Up until now, if you've implemented authentication, it will likely have been done using sessions - this is a useful point of comparison but, if you haven't implemented authentication yet, that's not going to impede you right now.
 
 Here's the authentication flow for this application
 
@@ -88,7 +110,7 @@ Here's the authentication flow for this application
 6. Every request to `"/posts"` must include a valid token (which is checked by the backend).
 7. When the user logs out, the front end discards the token.
 
-The current implementation is not without vulnerabilities - can you find any?
+![authentication flow diagram](./diagrams/auth_flow.png)
 
 ### What is a JSON Web Token?
 
@@ -125,9 +147,12 @@ REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
 1. Fork this repository
 2. Rename your fork to `acebook-<team name>`
 3. Clone your fork to your local machine
-4. Install Node.js dependencies
+4. Install Node.js dependencies for both FE and BE (API)
    ```
-   npm install
+   ; cd api
+   ; npm install
+   ; cd ../frontend
+   ; npm install
    ```
 5. Install an ESLint plugin for your editor. For example: [linter-eslint](https://github.com/AtomLinter/linter-eslint) for Atom.
 6. Install MongoDB
@@ -148,37 +173,68 @@ REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
   **Note the use of an environment variable for the JWT secret**
 
    ```
-   JWT_SECRET=SUPER_SECRET npm start
+   ; cd api
+   ; JWT_SECRET=SUPER_SECRET npm start
    ```
-2. Browse to [http://localhost:3000](http://localhost:3000)
+2. Start the front end
 
-#### Start test server
+  In a new terminal session...
 
-The server must be running locally with test configuration for the
-integration tests to pass.
+  ```
+  ; cd frontend
+  ; npm start
+  ```
+
+You should now be able to open your browser and go to `http://localhost:3000/signup` to create a new user.
+
+Then, after signing up, you should be able to log in by going to `http://localhost:3000/login`.
+
+After logging in, you won't see much but you can create posts using PostMan and they shoud then show up in the browser if you refresh the page.
+
+### Testing
+
+
+#### The Backend (API)
 
 **Note the use of an environment variable for the JWT secret**
 
-```
-JWT_SECRET=SUPER_SECRET npm run start:test
-```
+  Start the server
 
-This starts the server on port `3030` and uses the `acebook_test` MongoDB database,
-so that integration tests do not interact with the development server.
+  ```
+  ; cd api
+  ; JWT_SECRET=SUPER_SECRET npm start
+  ```
 
-### Test
+  Then run the tests in a new terminal session
+
+  ```
+  ; cd api
+  ; JWT_SECRET=SUPER_SECRET npm run test
+  ```
+
+#### The frontend (React)
 
 **Note the use of an environment variable for the JWT secret**
 
-- Run all tests
+  Start the server
+
   ```
-  JWT_SECRET=SUPER_SECRET npm test
+  ; cd api
+  ; JWT_SECRET=SUPER_SECRET npm start
   ```
-- Run a check
-  ```bash
-  npm run lint              # linter only
-  JWT_SECRET=SUPER_SECRET npm run test:unit         # unit tests only
-  npm run test:integration  # integration tests only
+
+  Then start the front end in a new terminal session
+
+  ```
+  ; cd frontend
+  ; JWT_SECRET=SUPER_SECRET npm start
+  ```
+
+  Then run the tests in a new terminal session
+
+  ```
+  ; cd frontend
+  ; JWT_SECRET=SUPER_SECRET npm run test
   ```
 
 ## MongoDB Connection Errors?
