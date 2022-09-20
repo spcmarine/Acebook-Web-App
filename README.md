@@ -198,11 +198,11 @@ After logging in, you won't see much but you can create posts using PostMan and 
 
 **Note the use of an environment variable for the JWT secret**
 
-  Start the server
+  Start the server in test mode (so that it connects to the test DB)
 
   ```
   ; cd api
-  ; JWT_SECRET=SUPER_SECRET npm start
+  ; JWT_SECRET=SUPER_SECRET npm run start:test
   ```
 
   Then run the tests in a new terminal session
@@ -216,11 +216,11 @@ After logging in, you won't see much but you can create posts using PostMan and 
 
 **Note the use of an environment variable for the JWT secret**
 
-  Start the server
+  Start the server in test mode (so that it connects to the test DB)
 
   ```
   ; cd api
-  ; JWT_SECRET=SUPER_SECRET npm start
+  ; JWT_SECRET=SUPER_SECRET npm run start:test
   ```
 
   Then start the front end in a new terminal session
