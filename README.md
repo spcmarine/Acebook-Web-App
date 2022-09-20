@@ -9,7 +9,6 @@ These videos complement the docs below.
 * [An overview of the app](https://youtu.be/meTABGgrO2c)
 * [The backend (api)](https://youtu.be/mFczOzWW3vo)
 * [Postman](https://youtu.be/VO_kinuJngA)
-* [The frontend (react)]()
 
 ## Existing Features
 
