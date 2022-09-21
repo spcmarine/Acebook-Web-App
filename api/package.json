@@ -5,11 +5,9 @@
   "license": "CC BY-NC-SA",
   "private": true,
   "scripts": {
-    "lint": "eslint .",
     "start": "nodemon ./bin/www",
     "start:test": "MONGODB_URL='mongodb://0.0.0.0/acebook_test' npm start",
-    "test": "npm run lint && npm run test:unit",
-    "test:unit": "jest"
+    "test": "jest"
   },
   "engines": {
     "node": ">=18.1.0"
@@ -31,9 +29,6 @@
     "supertest": "^6.2.4"
   },
   "devDependencies": {
-    "eslint": "^8.10.0",
-    "eslint-plugin-jest": "^22.21.0",
-    "eslint-plugin-node": "^11.1.0",
     "jest": "^27.5.1"
   },
   "nodemonConfig": {
