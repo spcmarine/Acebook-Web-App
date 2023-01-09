@@ -18,7 +18,6 @@ It's already possible for a user to:
 - Sign out
 - View a list of posts
 
-At the moment, it's not possible to create posts via the user interface but there are some failing tests for that feature, so it's a good place to start you work.
 ## Technologies
 
 Here's an overview of the technologies used to build this template application. You don't need to do a deep dive on each one right now. Instead, try to get a feeling for the big picture and then dive into the details when a specific task pushes you in that direction.
