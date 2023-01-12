@@ -23,7 +23,7 @@ It's already possible for a user to:
 Here's an overview of the technologies used to build this template application. You don't need to do a deep dive on each one right now. Instead, try to get a feeling for the big picture and then dive into the details when a specific task pushes you in that direction.
 
 ### **M** is for MongoDB
-[MongoDB](https://www.mongodb.com/) is a _NoSQL_ database program that stores data in collections of JSON-like structures, rather than in tables. The application interracts with MongoDB using a tool called Mongoose.
+[MongoDB](https://www.mongodb.com/) is a _NoSQL_ database program that stores data in collections of documents (in a format similar to JSON), rather than in tables. The application interacts with MongoDB using a tool called Mongoose.
 
 ### **E** is for Express
 [Express](https://expressjs.com/) is the Javascript equivalent of Sinatra. The structure of this application will feel quite different to what you're used to but the principles are the same.
@@ -47,7 +47,7 @@ We also used...
 
 This application is comprised of two distinct pieces.
 
-- An backend API built with Express
+- A backend API built with Express
 - A front end built with React
 
 The React front end sends HTTP requests to the backend API and receives JSON in response body, rather than a whole page of HTML.
@@ -85,13 +85,13 @@ And the body of the response would look like this.
 Here's a diagram of the above
 <br>
 <br>
-![a diagram of the mern stack](./diagrams/mern_stack.png)
+![a diagram of the MERN stack](./diagrams/mern_stack.png)
 <br>
 <br>
 
-Once recieved by the React FE, the JSON in the response body is used to render a list of posts on the page.
+Once received by the React FE, the JSON in the response body is used to render a list of posts on the page.
 
-![reponse body mapped onto a page](./diagrams/response_parsing.png)
+![response body mapped onto a page](./diagrams/response_parsing.png)
 
 This architectural pattern is quite popular because it allows teams to build multiple front ends, all of which use the same backend API. You could, for example, go on to build a mobile app without needing to create another backend API.
 ## Authentication
@@ -152,7 +152,7 @@ REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
    ; cd ../frontend
    ; npm install
    ```
-5. Install an ESLint plugin for your editor. For example: [linter-eslint](https://github.com/AtomLinter/linter-eslint) for Atom.
+5. Install an ESLint plugin for your editor. For example: [`linter-eslint`](https://github.com/AtomLinter/linter-eslint) for Atom.
 6. Install MongoDB
    ```
    brew tap mongodb/brew
@@ -187,7 +187,7 @@ You should now be able to open your browser and go to `http://localhost:3000/sig
 
 Then, after signing up, you should be able to log in by going to `http://localhost:3000/login`.
 
-After logging in, you won't see much but you can create posts using PostMan and they shoud then show up in the browser if you refresh the page.
+After logging in, you won't see much but you can create posts using PostMan and they should then show up in the browser if you refresh the page.
 
 ### Testing
 
@@ -243,3 +243,14 @@ Some people occasionally experience MongoDB connection errors when running the t
 - Check that it's running using `brew services list`
 
 If you have issues that are not resolved by these tips, please reach out to a coach and, once the issue is resolved, we can add a new tip!
+
+
+<!-- BEGIN GENERATED SECTION DO NOT EDIT -->
+
+---
+
+**How was this resource?**  
+[😫](https://airtable.com/shrUJ3t7KLMqVRFKR?prefill_Repository=makersacademy%2Facebook-mern-template&prefill_File=README.md&prefill_Sentiment=😫) [😕](https://airtable.com/shrUJ3t7KLMqVRFKR?prefill_Repository=makersacademy%2Facebook-mern-template&prefill_File=README.md&prefill_Sentiment=😕) [😐](https://airtable.com/shrUJ3t7KLMqVRFKR?prefill_Repository=makersacademy%2Facebook-mern-template&prefill_File=README.md&prefill_Sentiment=😐) [🙂](https://airtable.com/shrUJ3t7KLMqVRFKR?prefill_Repository=makersacademy%2Facebook-mern-template&prefill_File=README.md&prefill_Sentiment=🙂) [😀](https://airtable.com/shrUJ3t7KLMqVRFKR?prefill_Repository=makersacademy%2Facebook-mern-template&prefill_File=README.md&prefill_Sentiment=😀)  
+Click an emoji to tell us.
+
+<!-- END GENERATED SECTION DO NOT EDIT -->
