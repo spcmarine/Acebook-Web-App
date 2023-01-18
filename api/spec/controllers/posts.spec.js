@@ -3,15 +3,23 @@ const request = require("supertest");
 require("../mongodb_helper");
 const Post = require('../../models/post');
 const User = require('../../models/user');
-const TokenGenerator = require('../../models/token_generator');
 const JWT = require("jsonwebtoken");
+const secret = process.env.JWT_SECRET;
+
 let token;
 
 describe("/posts", () => {
   beforeAll( async () => {
     const user = new User({email: "test@test.com", password: "12345678"});
     await user.save();
-    token = TokenGenerator.jsonwebtoken(user.id);
+
+    token = JWT.sign({
+      user_id: user.id,
+      // Backdate this token of 5 minutes
+      iat: Math.floor(Date.now() / 1000) - (5 * 60),
+      // Set the JWT token to expire in 10 minutes
+      exp: Math.floor(Date.now() / 1000) + (10 * 60)
+    }, secret);
   });
 
   beforeEach( async () => {
