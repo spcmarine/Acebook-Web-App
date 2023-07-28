@@ -1,4 +1,4 @@
-const TokenGenerator = require("../../models/token_generator");
+const TokenGenerator = require("../../lib/token_generator");
 const JWT = require("jsonwebtoken")
 
 describe("TokenGenerator", () => {

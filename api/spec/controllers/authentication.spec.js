@@ -4,12 +4,19 @@ require("../mongodb_helper");
 const User = require('../../models/user');
 
 describe("/tokens", () => {
-  beforeAll( () => {
+  beforeAll(async () => {
     const user = new User({ email: "test@test.com", password: "12345678" })
-    user.save()
+
+    // We need to use `await` so the
+    // "beforeAll" setup function waits for the
+    // asynchronous user.save() to be done before exiting.
+    // Otherwise, the tests below
+    // could run without the user being actually saved.
+    // This could cause tests to fail inconsistently.
+    await user.save()
   });
 
-  afterAll( async () => {
+  afterAll(async () => {
     await User.deleteMany({})
   })
 

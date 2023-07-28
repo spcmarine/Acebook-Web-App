@@ -5,7 +5,7 @@ const logger = require("morgan");
 const JWT = require("jsonwebtoken");
 
 const postsRouter = require("./routes/posts");
-const tokensRouter = require("./routes/tokens");
+const authenticationRouter = require("./routes/authentication");
 const usersRouter = require("./routes/users");
 
 const app = express();
@@ -40,7 +40,7 @@ const tokenChecker = (req, res, next) => {
 
 // route setup
 app.use("/posts", tokenChecker, postsRouter);
-app.use("/tokens", tokensRouter);
+app.use("/tokens", authenticationRouter);
 app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler

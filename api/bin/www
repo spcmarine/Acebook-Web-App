@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+if (!process.env.JWT_SECRET) {
+  console.error("\nThe JWT_SECRET environment variable wasn't set before running the server. Did you forget it?\n\n",
+              "Make sure you run the server like documented here: https://github.com/makersacademy/acebook-mern-template#start \n\n");
+  process.exit();            
+}
+
 /**
  * Module dependencies.
  */
