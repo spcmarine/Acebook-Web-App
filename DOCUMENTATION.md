@@ -24,7 +24,7 @@ Here's an overview of the technologies used to build this template application. 
 [MongoDB](https://www.mongodb.com/) is a _NoSQL_ database program that stores data in collections of documents (in a format similar to JSON), rather than in tables. The application interacts with MongoDB using a tool called Mongoose.
 
 ### **E** is for Express
-[Express](https://expressjs.com/) is the Javascript equivalent of Sinatra. The structure of this application will feel quite different to what you're used to but the principles are the same.
+[Express](https://expressjs.com/) is the Javascript equivalent of Flask (Python) or Sinatra (Ruby). The structure of this application will feel quite different to what you're used to but the principles are the same.
 
 ### **R** is for React
 [React](https://reactjs.org/) is a hugely popular tool that is used to build engaging front ends. The basic principle is that the front end is split up into _components_, each of which _could_ include some logic, template structure (HTML) and styling (CSS).
