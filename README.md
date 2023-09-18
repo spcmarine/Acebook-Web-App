@@ -10,7 +10,7 @@ In this project, you are tasked with working on an existing application. A signi
 
 ## Card wall
 
-REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
+https://trello.com/b/ZU22GcBv/team-water-acebook
 
 ## Quickstart
 
