@@ -8,20 +8,45 @@ const Feed = ({ navigate }) => {
 
   useEffect(() => {
     if(token) {
+      fetchPosts();
+    }
+  }, []) // We can customize this empty array part to make it so that useEffect listens for changes to the webpage
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    if(token) {
       fetch("/posts", {
+        method: 'POST',
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: message })
+      }).then(response => {
+        if(response.status === 201) {
+          fetchPosts();
+          console.log('Post has been successfully added')
+        } else {
+          console.log('Something went wrong, post was not added')
         }
       })
-        .then(response => response.json())
-        .then(async data => {
-          window.localStorage.setItem("token", data.token)
-          setToken(window.localStorage.getItem("token"))
-          setPosts(data.posts);
-        })
     }
-  }, [])
-    
+  }
+  
+  const fetchPosts = () => {
+    fetch("/posts", {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(async data => {
+        window.localStorage.setItem("token", data.token)
+        setToken(window.localStorage.getItem("token"))
+        setPosts(data.posts);
+      })
+  }
 
   const logout = () => {
     window.localStorage.removeItem("token")
@@ -29,7 +54,7 @@ const Feed = ({ navigate }) => {
   }
 
   const handleCreatePost = (event) => {
-    setMessage (event.target.value)
+    setMessage(event.target.value)
   }
   
     if(token) {
