@@ -3,6 +3,7 @@ import Post from '../post/Post'
 
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
+  const [message, setMessage] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
 
   useEffect(() => {
@@ -26,6 +27,10 @@ const Feed = ({ navigate }) => {
     window.localStorage.removeItem("token")
     navigate('/login')
   }
+
+  const handleCreatePost = (event) => {
+    setMessage (event.target.value)
+  }
   
     if(token) {
       return(
@@ -34,7 +39,13 @@ const Feed = ({ navigate }) => {
             <button onClick={logout}>
               Logout
             </button>
-          <div id='feed' role="feed">
+            <form onSubmit={handleSubmit}>
+              <input placeholder="Write your message here" id="newPost" type="text" value= { message } onChange={handleCreatePost}/> 
+              <input id="submit" type="submit" value="Create Post" />
+
+            </form>
+          <div id='feed' role="feed">   
+          {/* role seems to be an accessibilty descriptor for screen readers*/}
               {posts.map(
                 (post) => ( <Post post={ post } key={ post._id } /> )
               )}
