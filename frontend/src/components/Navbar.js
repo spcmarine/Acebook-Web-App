@@ -11,15 +11,17 @@ const Navbar = ({ currentPage }) => {
             <Link className="nav-link active text-primary" to="/signup">Home</Link>
           </li>
           <li className="nav-item">
-            {currentPage === 'signup' ? (
-                <Link className="nav-link" to="/login">Login</Link>
-            ) : (
-               <Link className="nav-link" to="/feed">Post</Link> 
-            )}
+            {currentPage === 'signup' || currentPage == 'login' ? (
+              <Link className="nav-link" to="/login">Login</Link>
+              ) : (
+                <Link className="nav-link" to="/posts">Post</Link> 
+            )} 
+            
+
             
           </li>
           <li className="nav-item">
-            {currentPage === 'signup' ? (
+            {currentPage === 'signup' || currentPage === 'login'? (
               <Link className="nav-link " to="/signup">Sign Up</Link>
             ) : (
               <Link className="nav-link " to="/login">Log Out</Link>

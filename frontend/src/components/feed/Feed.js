@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import Post from '../post/Post'
-
+import Post from '../post/Post';
+import Navbar from '../Navbar';
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const [userEmail, setUserEmail] = useState(""); 
 
   useEffect(() => {
     if(token) {
       fetchPosts();
     }
   }, []) // We can customize this empty array part to make it so that useEffect listens for changes to the webpage
+  
+  
+  useEffect(() => {
+    const userEmail = window.localStorage.getItem("userEmail");   //change to name
+    setUserEmail(userEmail); //change me
+  }, [])
+
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -57,9 +65,13 @@ const Feed = ({ navigate }) => {
     setMessage(event.target.value)
   }
   
-    if(token) {
+    if(token) {                                 //change to name
       return(
         <>
+      <Navbar currentPage="feed" />{
+        <>
+         <h4>Welcome, <i>{userEmail}!</i></h4> 
+        <br></br>
           <h2>Posts</h2>
             <button onClick={logout}>
               Logout
@@ -76,6 +88,8 @@ const Feed = ({ navigate }) => {
               )}
           </div>
         </>
+    }
+    </>
       )
     } else {
       navigate('/login')

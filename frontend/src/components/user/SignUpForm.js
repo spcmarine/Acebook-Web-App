@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Navbar from '../Navbar';
 const SignUpForm = ({ navigate }) => {
 
   const [email, setEmail] = useState("");
@@ -34,11 +34,15 @@ const SignUpForm = ({ navigate }) => {
 
 
     return (
+      <>
+      <Navbar currentPage="signup" />{
       <form onSubmit={handleSubmit}>
           <input placeholder="Email" id="email" type='text' value={ email } onChange={handleEmailChange} />
           <input placeholder="Password" id="password" type='password' value={ password } onChange={handlePasswordChange} />
         <input id='submit' type="submit" value="Submit" />
       </form>
+      }
+      </>
     );
 }
 
