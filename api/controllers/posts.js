@@ -24,7 +24,13 @@ const PostsController = {
   },
 
   upVote: (req, res) => {
-    Post.save()
+    console.log(req.body.likedPost.postObject)
+    const filter = req.body.likedPost.postObject.likes
+    Post.updateOne(filter, {$inc: {likes: 1}})
+
+    console.log(req.body.likedPost.postObject)
+    const token = TokenGenerator.jsonwebtoken(req.user_id)
+    res.status(201).json({ message: 'OK', token: token });
   }
 };
 

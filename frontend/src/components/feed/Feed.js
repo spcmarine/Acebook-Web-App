@@ -3,6 +3,7 @@ import Post from '../post/Post'
 
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
+  const [likedPost, setLikedPost] = useState({});
   const [message, setMessage] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
 
@@ -56,6 +57,29 @@ const Feed = ({ navigate }) => {
   const handleCreatePost = (event) => {
     setMessage(event.target.value)
   }
+
+  const handleLikeSubmit = async (postObject) => {
+    setLikedPost({postObject})
+
+    if(token) {
+      fetch('/posts', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ likedPost: likedPost })
+      }).then(response => {
+        if(response.status === 201) {
+          fetchPosts()
+          console.log('Like property has been incremented')
+        } else {
+          console.log('Something went wrong when trying to increment likes')
+        }
+      })
+    }
+
+  }
   
     if(token) {
       return(
@@ -72,7 +96,7 @@ const Feed = ({ navigate }) => {
           <div id='feed' role="feed">   
           {/* role seems to be an accessibilty descriptor for screen readers*/}
               {posts.map(
-                (post) => ( <Post post={ post } key={ post._id } /> )
+                (post) => ( <Post post={ post } key={ post._id } handleLikeSubmit={handleLikeSubmit} /> )
               )}
           </div>
         </>
