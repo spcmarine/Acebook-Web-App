@@ -17,6 +17,7 @@ const LogInForm = ({ navigate }) => {
 
     if(response.status !== 201) {
       console.log("oop")
+      alert("Username or password are incorrect")
       navigate('/login')
     } else {
       console.log("yay")

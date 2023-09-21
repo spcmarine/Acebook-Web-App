@@ -22,7 +22,16 @@ const SignUpForm = ({ navigate }) => {
       .then(response => {
         if(response.status === 201) {
           navigate('/login')
-        } else {
+        } 
+        else if(response.status === 400) {
+          alert("You need to add email, password, first and last name")
+          navigate('/signup')
+        } 
+        else if(response.status === 409) {
+          alert("User already exists")
+          navigate('/signup')
+        }
+        else {
           navigate('/signup')
         }
       })
