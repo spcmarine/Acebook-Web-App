@@ -22,6 +22,14 @@ const PostsController = {
       res.status(201).json({ message: 'OK', token: token });
     });
   },
+
+  upVote: (req, res) => {
+    Post.save()
+  }
 };
 
 module.exports = PostsController;
+
+// access individiual ids from posts
+// use id to find individual post we want to update
+// use update/updateOne to increment the likes property by one (use $set / $inc ? )
