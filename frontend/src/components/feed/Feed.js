@@ -3,28 +3,58 @@ import Post from '../post/Post'
 
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
+  const [message, setMessage] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
 
   useEffect(() => {
     if(token) {
+      fetchPosts();
+    }
+  }, []) // We can customize this empty array part to make it so that useEffect listens for changes to the webpage
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    if(token) {
       fetch("/posts", {
+        method: 'POST',
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: message })
+      }).then(response => {
+        if(response.status === 201) {
+          fetchPosts();
+          console.log('Post has been successfully added')
+        } else {
+          console.log('Something went wrong, post was not added')
         }
       })
-        .then(response => response.json())
-        .then(async data => {
-          window.localStorage.setItem("token", data.token)
-          setToken(window.localStorage.getItem("token"))
-          setPosts(data.posts);
-        })
     }
-  }, [])
-    
+  }
+  
+  const fetchPosts = () => {
+    fetch("/posts", {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(async data => {
+        window.localStorage.setItem("token", data.token)
+        setToken(window.localStorage.getItem("token"))
+        setPosts(data.posts);
+      })
+  }
 
   const logout = () => {
     window.localStorage.removeItem("token")
     navigate('/login')
+  }
+
+  const handleCreatePost = (event) => {
+    setMessage(event.target.value)
   }
   
     if(token) {
@@ -34,7 +64,13 @@ const Feed = ({ navigate }) => {
             <button onClick={logout}>
               Logout
             </button>
-          <div id='feed' role="feed">
+            <form onSubmit={handleSubmit}>
+              <input placeholder="Write your message here" id="newPost" type="text" value= { message } onChange={handleCreatePost}/> 
+              <input id="submit" type="submit" value="Create Post" />
+
+            </form>
+          <div id='feed' role="feed">   
+          {/* role seems to be an accessibilty descriptor for screen readers*/}
               {posts.map(
                 (post) => ( <Post post={ post } key={ post._id } /> )
               )}
