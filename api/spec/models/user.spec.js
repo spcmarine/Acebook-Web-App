@@ -26,13 +26,15 @@ describe("User model", () => {
     expect(user.password).toEqual("password");
   });
 
-  it("has a name", () => {
+  it("has first and last names", () => {
     const user = new User({
       email: "someone@example.com",
       password: "password",
-      name: "Name"
+      firstName: "Joe",
+      lastName: "Bloggs"
     });
-    expect(user.name).toEqual("Name");
+    expect(user.firstName).toEqual("Joe");
+    expect(user.lastName).toEqual("Bloggs");
   });
 
   it("can list all users", (done) => {
@@ -47,7 +49,8 @@ describe("User model", () => {
     const user = new User({
       email: "someone@example.com",
       password: "password",
-      name: "Name"
+      firstName: "Joe",
+      lastName: "Bloggs"
     });
 
     user.save((err) => {
@@ -59,7 +62,8 @@ describe("User model", () => {
         expect(users[0]).toMatchObject({
           email: "someone@example.com",
           password: "password",
-          name: "Name"
+          firstName: "Joe",
+          lastName: "Bloggs"
         });
         done();
       });
