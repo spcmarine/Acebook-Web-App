@@ -22,6 +22,7 @@ const LogInForm = ({ navigate }) => {
       console.log("yay")
       let data = await response.json()
       window.localStorage.setItem("token", data.token)
+      window.localStorage.setItem("userEmail", email) // Store the user's email in local storage
       navigate('/posts');
     }
   }
@@ -35,13 +36,13 @@ const LogInForm = ({ navigate }) => {
   }
 
 
-    return (
-      <form onSubmit={handleSubmit}>
-        <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} />
-        <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} />
-        <input role='submit-button' id='submit' type="submit" value="Submit" />
-      </form>
-    );
+  return (
+    <form onSubmit={handleSubmit}>
+      <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} />
+      <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} />
+      <input role='submit-button' id='submit' type="submit" value="Submit" />
+    </form>
+  );
 }
 
 export default LogInForm;

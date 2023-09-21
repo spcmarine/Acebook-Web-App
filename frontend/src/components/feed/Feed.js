@@ -5,12 +5,18 @@ const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
     if(token) {
       fetchPosts();
     }
-  }, []) // We can customize this empty array part to make it so that useEffect listens for changes to the webpage
+  }, [])
+
+  useEffect(() => {
+    const userEmail = window.localStorage.getItem("userEmail");
+    setUserEmail(userEmail);
+  }, [])
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -57,29 +63,29 @@ const Feed = ({ navigate }) => {
     setMessage(event.target.value)
   }
   
-    if(token) {
-      return(
-        <>
-          <h2>Posts</h2>
-            <button onClick={logout}>
-              Logout
-            </button>
-            <form onSubmit={handleSubmit}>
-              <input placeholder="Write your message here" id="newPost" type="text" value= { message } onChange={handleCreatePost}/> 
-              <input id="submit" type="submit" value="Create Post" />
-
-            </form>
-          <div id='feed' role="feed">   
-          {/* role seems to be an accessibilty descriptor for screen readers*/}
-              {posts.map(
-                (post) => ( <Post post={ post } key={ post._id } /> )
-              )}
-          </div>
-        </>
-      )
-    } else {
-      navigate('/login')
-    }
+  if(token) {
+    return(
+      <>
+        <h4>Welcome, {userEmail}!</h4>
+        <br></br>
+        <h2>Posts</h2>
+        <button onClick={logout}>
+          Logout
+        </button>
+        <form onSubmit={handleSubmit}>
+          <input placeholder="Write your message here" id="newPost" type="text" value= { message } onChange={handleCreatePost}/> 
+          <input id="submit" type="submit" value="Create Post" />
+        </form>
+        <div id='feed' role="feed">   
+          {posts.map(
+            (post) => ( <Post post={ post } key={ post._id } /> )
+          )}
+        </div>
+      </>
+    )
+  } else {
+    navigate('/login')
+  }
 }
 
 export default Feed;
