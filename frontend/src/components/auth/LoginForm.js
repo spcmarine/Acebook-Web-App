@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 const LogInForm = ({ navigate }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(""); // change to name
+  const [password, setPassword] = useState(""); 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -22,7 +22,7 @@ const LogInForm = ({ navigate }) => {
       console.log("yay")
       let data = await response.json()
       window.localStorage.setItem("token", data.token)
-      window.localStorage.setItem("userEmail", email) // Store the user's email in local storage
+      window.localStorage.setItem("userEmail", email) // change to nameßß
       navigate('/posts');
     }
   }

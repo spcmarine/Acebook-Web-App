@@ -5,7 +5,7 @@ const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
-  const [userEmail, setUserEmail] = useState("");
+  const [userEmail, setUserEmail] = useState("");   //change to name
 
   useEffect(() => {
     if(token) {
@@ -14,7 +14,7 @@ const Feed = ({ navigate }) => {
   }, [])
 
   useEffect(() => {
-    const userEmail = window.localStorage.getItem("userEmail");
+    const userEmail = window.localStorage.getItem("userEmail");   //change to name
     setUserEmail(userEmail);
   }, [])
 
@@ -63,10 +63,10 @@ const Feed = ({ navigate }) => {
     setMessage(event.target.value)
   }
   
-  if(token) {
+  if(token) {                                       //change to name
     return(
       <>
-        <h4>Welcome, {userEmail}!</h4>
+        <h4>Welcome, <i>{userEmail}!</i></h4> 
         <br></br>
         <h2>Posts</h2>
         <button onClick={logout}>
