@@ -45,6 +45,7 @@ const Feed = ({ navigate }) => {
         window.localStorage.setItem("token", data.token)
         setToken(window.localStorage.getItem("token"))
         setPosts(data.posts.reverse());
+        // This reverses the array of posts data we get back from Mongo DB
       })
   }
 
