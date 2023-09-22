@@ -37,6 +37,8 @@ const Feed = ({ navigate }) => {
         } else {
           console.log('Something went wrong, post was not added')
         }
+      }).then(data => {
+        setMessage("")
       })
     }
   }
@@ -128,3 +130,9 @@ const Feed = ({ navigate }) => {
 }
 
 export default Feed;
+
+
+// update mongodb schema with comment document
+// fetch request in feed.js to comment doc
+// pass this down to comment.js
+// map through comments to display on frontend
