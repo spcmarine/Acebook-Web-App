@@ -52,7 +52,8 @@ const Feed = ({ navigate }) => {
       .then(async data => {
         window.localStorage.setItem("token", data.token)
         setToken(window.localStorage.getItem("token"))
-        setPosts(data.posts);
+        setPosts(data.posts.reverse());
+
       })
   }
 
@@ -63,6 +64,28 @@ const Feed = ({ navigate }) => {
 
   const handleCreatePost = (event) => {
     setMessage(event.target.value)
+  }
+
+  const handleLikeSubmit = async (postObject) => {
+
+    if(token) {
+      fetch('/posts', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ likedPost: postObject })
+      }).then(response => {
+        if(response.status === 201) {
+          fetchPosts()
+          console.log('Like property has been incremented')
+        } else {
+          console.log('Something went wrong when trying to increment likes')
+        }
+      })
+    }
+
   }
   
     if(token) {                                 //change to name
@@ -92,7 +115,7 @@ const Feed = ({ navigate }) => {
           
           {/* role seems to be an accessibilty descriptor for screen readers*/}
               {posts.map(
-                (post) => ( <Post post={ post } key={ post._id } /> )
+                (post) => ( <Post post={ post } key={ post._id } handleLikeSubmit={handleLikeSubmit} /> )
               )}
           
           </div>

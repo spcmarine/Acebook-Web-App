@@ -4,6 +4,9 @@ const SignUpForm = ({ navigate }) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -13,7 +16,7 @@ const SignUpForm = ({ navigate }) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email: email, password: password })
+      body: JSON.stringify({ email: email, password: password, firstName: firstName, lastName: lastName })
     })
       .then(response => {
         if(response.status === 201) {
@@ -32,6 +35,14 @@ const SignUpForm = ({ navigate }) => {
     setPassword(event.target.value)
   }
 
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value)
+  }
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value)
+  }
+
 
     return (
       <>
@@ -41,9 +52,11 @@ const SignUpForm = ({ navigate }) => {
         <h3 className="mb-5">Sign Up</h3>
           <input placeholder="Email" id="email" className="form-control " type='text' value={ email } onChange={handleEmailChange} />
           <input placeholder="Password" id="password" className="form-control" type='password' value={ password } onChange={handlePasswordChange} />
+          <input placeholder="Name" id="name" className="form-control" type='text' value={ firstName } onChange={handleFirstNameChange} />
+          <input placeholder="Name" id="name" className="form-control" type='text' value={ lastName } onChange={handleLastNameChange} />
         <input id='submit' type="submit" className="btn btn-primary" value="Submit" />
       </form>
-      </div>
+       </div>
       }
       </>
     );
