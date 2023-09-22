@@ -24,13 +24,14 @@ const PostsController = {
   },
 
   upVote: (req, res) => {
-    console.log(req.body.likedPost.postObject)
-    const filter = req.body.likedPost.postObject.likes
-    Post.updateOne(filter, {$inc: {likes: 1}})
-
-    console.log(req.body.likedPost.postObject)
-    const token = TokenGenerator.jsonwebtoken(req.user_id)
-    res.status(201).json({ message: 'OK', token: token });
+    const filter = req.body.likedPost._id
+    console.log(filter)
+    Post.findByIdAndUpdate(filter, { $inc: {likes: 1} })
+    .then(post => {
+      post.save()
+      const token = TokenGenerator.jsonwebtoken(req.user_id)
+      res.status(201).json({ message: 'OK', token: token });
+    })
   }
 };
 

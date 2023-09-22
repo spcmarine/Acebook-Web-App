@@ -3,7 +3,6 @@ import Post from '../post/Post'
 
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
-  const [likedPost, setLikedPost] = useState({});
   const [message, setMessage] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
 
@@ -45,7 +44,7 @@ const Feed = ({ navigate }) => {
       .then(async data => {
         window.localStorage.setItem("token", data.token)
         setToken(window.localStorage.getItem("token"))
-        setPosts(data.posts);
+        setPosts(data.posts.reverse());
       })
   }
 
@@ -59,7 +58,6 @@ const Feed = ({ navigate }) => {
   }
 
   const handleLikeSubmit = async (postObject) => {
-    setLikedPost({postObject})
 
     if(token) {
       fetch('/posts', {
@@ -68,7 +66,7 @@ const Feed = ({ navigate }) => {
           'Authorization': `Bearer ${token}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ likedPost: likedPost })
+        body: JSON.stringify({ likedPost: postObject })
       }).then(response => {
         if(response.status === 201) {
           fetchPosts()
