@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-
+import Navbar from '../Navbar';
 const LogInForm = ({ navigate }) => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(""); // change to name
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (event) => {
@@ -23,6 +23,7 @@ const LogInForm = ({ navigate }) => {
       console.log("yay")
       let data = await response.json()
       window.localStorage.setItem("token", data.token)
+      window.localStorage.setItem("userEmail", email) // change to name
       navigate('/posts');
     }
   }
@@ -35,14 +36,21 @@ const LogInForm = ({ navigate }) => {
     setPassword(event.target.value)
   }
 
-
     return (
-      <form onSubmit={handleSubmit}>
-        <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} />
-        <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} />
-        <input role='submit-button' id='submit' type="submit" value="Submit" />
+  <>
+  <Navbar currentPage="login" />{
+    <div className="d-flex flex-column justify-content-center align-items-center">
+      <form onSubmit={handleSubmit} className="d-inline-flex flex-column justify-content-center align-items-center">
+        <h3 className="mb-5">Log In</h3>
+        <input placeholder='Email' id="email" className="d-inline-flex form-control" type='text' value={ email } onChange={handleEmailChange} />
+        <input placeholder='Password' id="password" className=" d-inline-flex form-control" type='password' value={ password } onChange={handlePasswordChange} />
+        <input role='submit-button' className="btn btn-primary" id='submit' type="submit" value="Submit" />
       </form>
+      </div>
+      
+  }</>
     );
 }
+
 
 export default LogInForm;

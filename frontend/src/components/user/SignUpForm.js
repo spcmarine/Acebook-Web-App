@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Navbar from '../Navbar';
 const SignUpForm = ({ navigate }) => {
 
   const [email, setEmail] = useState("");
@@ -59,14 +59,22 @@ const SignUpForm = ({ navigate }) => {
 
 
     return (
-      <form onSubmit={handleSubmit}>
-          <input placeholder="Email" id="email" type='text' value={ email } onChange={handleEmailChange} />
-          <input placeholder="Password" id="password" type='password' value={ password } onChange={handlePasswordChange} />
-          <input placeholder="First Name" id="first_name" type='text' value={ firstName } onChange={handleFirstNameChange} />
-          <input placeholder="Last Name" id="last_name" type='text' value={ lastName } onChange={handleLastNameChange} />
-          <input placeholder="Profile picture URL" id="profile_pic" type='text' value={ profileURL } onChange={handleprofileURLChange} />
-        <input id='submit' type="submit" value="Submit" />
+
+      <>
+      <Navbar currentPage="signup" />{
+        <div className="d-flex flex-column justify-content-center align-items-center">
+      <form onSubmit={handleSubmit} className="d-inline-flex flex-column justify-content-center align-items-center">
+        <h3 className="mb-5">Sign Up</h3>
+          <input placeholder="Email" id="email" className="form-control " type='text' value={ email } onChange={handleEmailChange} />
+          <input placeholder="Password" id="password" className="form-control" type='password' value={ password } onChange={handlePasswordChange} />
+          <input placeholder="First Name" className="form-control" id="first_name" type='text' value={ firstName } onChange={handleFirstNameChange} />
+          <input placeholder="Last Name" className="form-control" id="last_name" type='text' value={ lastName } onChange={handleLastNameChange} />
+          <input placeholder="Profile picture URL" className="form-control" id="profile_pic" type='text' value={ profileURL } onChange={handleprofileURLChange} />
+        <input id='submit' type="submit" className="btn btn-primary" value="Submit" />
       </form>
+       </div>
+      }
+      </>
     );
 }
 
