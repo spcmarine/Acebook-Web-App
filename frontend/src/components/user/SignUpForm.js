@@ -36,9 +36,9 @@ const SignUpForm = ({ navigate }) => {
     return (
       <>
       <Navbar currentPage="signup" />{
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="d-inline-flex flex-column">
         <h3>Sign Up</h3>
-          <input placeholder="Email" id="email" className="form-control" type='text' value={ email } onChange={handleEmailChange} />
+          <input placeholder="Email" id="email" className="form-control " type='text' value={ email } onChange={handleEmailChange} />
           <input placeholder="Password" id="password" className="form-control" type='password' value={ password } onChange={handlePasswordChange} />
         <input id='submit' type="submit" className="btn btn-primary" value="Submit" />
       </form>
