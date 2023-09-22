@@ -39,9 +39,10 @@ const LogInForm = ({ navigate }) => {
   <>
   <Navbar currentPage="login" />{
       <form onSubmit={handleSubmit}>
-        <input placeholder='Email' id="email" type='text' value={ email } onChange={handleEmailChange} />
-        <input placeholder='Password' id="password" type='password' value={ password } onChange={handlePasswordChange} />
-        <input role='submit-button' id='submit' type="submit" value="Submit" />
+        <h3>Log In</h3>
+        <input placeholder='Email' id="email" className="form-control" type='text' value={ email } onChange={handleEmailChange} />
+        <input placeholder='Password' id="password" className="form-control" type='password' value={ password } onChange={handlePasswordChange} />
+        <input role='submit-button' className="btn btn-primary" id='submit' type="submit" value="Submit" />
       </form>
       
   }</>
