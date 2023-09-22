@@ -7,7 +7,8 @@ describe("Sitting up", () => {
 
     cy.intercept('POST', '/users', { message: "OK" }).as("signUpRequest")
 
-    cy.get("#email").type("someone@example.com");
+    //The email address will need to be changed each time Cypress is run, otherwise the test will fail.
+    cy.get("#email").type("someone@example.com"); 
     cy.get("#password").type("password");
     cy.get("#first_name").type("Joe");
     cy.get("#last_name").type("Bloggs");
