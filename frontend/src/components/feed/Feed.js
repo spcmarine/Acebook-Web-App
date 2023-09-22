@@ -56,10 +56,6 @@ const Feed = ({ navigate }) => {
       })
   }
 
-  // const logout = () => {
-  //   window.localStorage.removeItem("token")
-  //   navigate('/login')
-  // }
 
   const handleCreatePost = (event) => {
     setMessage(event.target.value)

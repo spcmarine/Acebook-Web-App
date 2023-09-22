@@ -1,6 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+
+const logout = () => {
+  window.localStorage.removeItem("token");
+}
+
+
 const Navbar = ({ currentPage }) => {
   return (
     <nav className="navbar navbar-expand-lg flex sticky-top mb-5 bg-info text-white ">
@@ -24,7 +30,7 @@ const Navbar = ({ currentPage }) => {
             {currentPage === 'signup' || currentPage === 'login'? (
               <Link className="nav-link text-white " to="/signup">Sign Up</Link>
             ) : (
-              <Link className="nav-link text-white " to="/login">Log Out</Link>
+              <Link className="nav-link text-white " onClick={logout} to="/login">Log Out</Link>
             )}
           </li>
         </ul>
