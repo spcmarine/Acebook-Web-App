@@ -41,28 +41,6 @@ const Feed = ({ navigate }) => {
     }
   }
   
-  const fetchPosts = () => {
-    fetch("/posts", {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(response => response.json())
-      .then(async data => {
-        window.localStorage.setItem("token", data.token)
-        setToken(window.localStorage.getItem("token"))
-        setPosts(data.posts);
-      })
-  }
-
-  const logout = () => {
-    window.localStorage.removeItem("token")
-    navigate('/login')
-  }
-
-  const handleCreatePost = (event) => {
-    setMessage(event.target.value)
-  }
   
   const fetchPosts = () => {
     fetch("/posts", {
@@ -79,10 +57,6 @@ const Feed = ({ navigate }) => {
       })
   }
 
-  // const logout = () => {
-  //   window.localStorage.removeItem("token")
-  //   navigate('/login')
-  // }
 
   const handleCreatePost = (event) => {
     setMessage(event.target.value)
@@ -117,7 +91,7 @@ const Feed = ({ navigate }) => {
         <>
         
 
-         <h6>User : <i className="text-info fw-bold">{ userEmail}</i></h6> 
+        <h6>User : <i className="text-info fw-bold">{ userEmail}</i></h6> 
         <br></br>
         
           <h2 className=" d-flex justify-content-start ml-5 text-primary">Posts</h2>
@@ -141,7 +115,7 @@ const Feed = ({ navigate }) => {
               )}
           
           </div>
-         
+        
         </>
     }
     </>
