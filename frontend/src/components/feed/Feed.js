@@ -12,8 +12,7 @@ const Feed = ({ navigate }) => {
       fetchPosts();
     }
   }, []) // We can customize this empty array part to make it so that useEffect listens for changes to the webpage
-  
-  
+
   useEffect(() => {
     const userEmail = window.localStorage.getItem("userEmail");   //change to name
     setUserEmail(userEmail); //change me
@@ -40,6 +39,29 @@ const Feed = ({ navigate }) => {
         }
       })
     }
+  }
+  
+  const fetchPosts = () => {
+    fetch("/posts", {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(async data => {
+        window.localStorage.setItem("token", data.token)
+        setToken(window.localStorage.getItem("token"))
+        setPosts(data.posts);
+      })
+  }
+
+  const logout = () => {
+    window.localStorage.removeItem("token")
+    navigate('/login')
+  }
+
+  const handleCreatePost = (event) => {
+    setMessage(event.target.value)
   }
   
   const fetchPosts = () => {
