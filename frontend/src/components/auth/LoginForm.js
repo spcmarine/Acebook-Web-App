@@ -38,12 +38,14 @@ const LogInForm = ({ navigate }) => {
     return (
   <>
   <Navbar currentPage="login" />{
-      <form onSubmit={handleSubmit} className="d-inline-flex flex-column">
+    <div className="d-flex flex-column justify-content-center align-items-center">
+      <form onSubmit={handleSubmit} className="d-inline-flex flex-column justify-content-center align-items-center">
         <h3 className="mb-5">Log In</h3>
         <input placeholder='Email' id="email" className="d-inline-flex form-control" type='text' value={ email } onChange={handleEmailChange} />
         <input placeholder='Password' id="password" className=" d-inline-flex form-control" type='password' value={ password } onChange={handlePasswordChange} />
         <input role='submit-button' className="btn btn-primary" id='submit' type="submit" value="Submit" />
       </form>
+      </div>
       
   }</>
     );
