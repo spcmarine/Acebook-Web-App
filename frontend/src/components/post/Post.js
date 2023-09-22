@@ -1,4 +1,5 @@
 import React from 'react';
+import Comment from '../comment/Comment.js'
 
 const Post = ({post, handleLikeSubmit}) => {
   // We have to destructure the handleLikeSubmit because we cannot call a function
@@ -14,6 +15,7 @@ const Post = ({post, handleLikeSubmit}) => {
   return(
     <article data-cy="post" key={ post._id }>{ post.message } Likes: {post.likes} 
     <button onClick={handleLikeEvent}>Like button</button>
+    <Comment/>
     </article>
   )
 }
