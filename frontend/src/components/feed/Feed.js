@@ -56,10 +56,10 @@ const Feed = ({ navigate }) => {
       })
   }
 
-  const logout = () => {
-    window.localStorage.removeItem("token")
-    navigate('/login')
-  }
+  // const logout = () => {
+  //   window.localStorage.removeItem("token")
+  //   navigate('/login')
+  // }
 
   const handleCreatePost = (event) => {
     setMessage(event.target.value)
@@ -70,23 +70,33 @@ const Feed = ({ navigate }) => {
         <>
       <Navbar currentPage="feed" />{
         <>
-         <h4>Welcome, <i>{userEmail}!</i></h4> 
+        
+
+         <h6>User : <i className="text-info fw-bold">{ userEmail}</i></h6> 
         <br></br>
-          <h2>Posts</h2>
-            <button onClick={logout}>
+        
+          <h2 className=" d-flex justify-content-start ml-5 text-primary">Posts</h2>
+            {/* <button onClick={logout}>
               Logout
-            </button>
-            <form onSubmit={handleSubmit}>
-              <input placeholder="Write your message here" id="newPost" type="text" value= { message } onChange={handleCreatePost}/> 
-              <input id="submit" type="submit" value="Create Post" />
+            </button> */}
+            <div  role="document">
+            <form onSubmit={handleSubmit} className="d-inline-flex" >
+              <input placeholder="Write your message here" className="form-control" id="newPost"  type="text" value= { message } onChange={handleCreatePost}/> 
+              <input id="submit" type="submit" className="btn btn-primary" value="Create Post" />
 
             </form>
-          <div id='feed' role="feed">   
+            </div>
+  
+          
+          <div id='feed' role="feed"  >   
+          
           {/* role seems to be an accessibilty descriptor for screen readers*/}
               {posts.map(
                 (post) => ( <Post post={ post } key={ post._id } /> )
               )}
+          
           </div>
+         
         </>
     }
     </>
