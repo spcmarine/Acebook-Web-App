@@ -12,13 +12,21 @@ const Post = ({post, handleLikeSubmit}) => {
   }
 
   return(
-    <article data-cy="post" className='card d-flex text-center' key={ post._id }>
-      <div className="card mb-5 ml-5 mt-5 mr-5 shadow">
-      <div className="col" >{post.message}</div>
-      <div className="col text-primary" >{post.likes} 💙</div>
-      <button className="btn btn-danger" onClick={handleLikeEvent}>Heart</button>
-      </div>
-    </article>
+    <div className="container d-flex justify-content-center align-items-center p-4">
+      <article data-cy="post" className='card d-flex text-center w-75 p-3' key={ post._id }>
+        <div className="card mb-5 ml-5 mt-5 mr-5 shadow">
+        <div className="col text-center" >{post.message} </div>
+        <div className="d-flex justify-content-start p-3 pb-0"> 
+          <div className="text-primary" >{post.likes} 💙</div>
+        </div>
+        <div className="d-flex justify-content-end p-3 pt-0">
+          <button className="btn btn-danger btn-sm" style={{ width: '70px', height: '30px' }} onClick={handleLikeEvent}>
+            Heart
+          </button>
+        </div>
+        </div>
+      </article>
+    </div>
   )
 }
 
