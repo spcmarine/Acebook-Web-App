@@ -5,7 +5,8 @@ const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
-  const [userEmail, setUserEmail] = useState(""); 
+  const [userEmail, setUserEmail] = useState("");
+
 
   useEffect(() => {
     if(token) {
@@ -84,9 +85,9 @@ const Feed = ({ navigate }) => {
         }
       })
     }
-
   }
-  
+
+
     if(token) {                                 //change to name
       return(
         <>
@@ -103,7 +104,7 @@ const Feed = ({ navigate }) => {
             </button> */}
             <div  role="document">
             <form onSubmit={handleSubmit} className="d-inline-flex" >
-              <input placeholder="Write your message here" className="form-control" id="newPost"  type="text" value= { message } onChange={handleCreatePost}/> 
+              <input placeholder="Write your message here" className="form-control" id="newPost"  type="text" value= { message } onChange={ handleCreatePost } /> 
               <input id="submit" type="submit" className="btn btn-primary" value="Create Post" />
 
             </form>
@@ -113,7 +114,7 @@ const Feed = ({ navigate }) => {
           <div id='feed' role="feed"  >   
           
               {posts.map(
-                (post) => ( <Post post={ post } key={ post._id } handleLikeSubmit={handleLikeSubmit} /> )
+                (post) => ( <Post post={ post } key={ post._id } handleLikeSubmit={ handleLikeSubmit } token={ token } setToken={ setToken }/> )
               )}
           
           </div>

@@ -1,21 +1,73 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Comment from '../comment/Comment.js'
 
-const Post = ({post, handleLikeSubmit}) => {
+const Post = ({post, handleLikeSubmit, token, setToken}) => {
+  const [commentInput, setCommentInput] = useState("");
+  const [commentList, setCommentList] = useState([]); 
+
   // We have to destructure the handleLikeSubmit because we cannot call a function
   // from a parent component passed down
   // We have to define a new function which handles the event of the button
   // being pressed and then call the parent component function
   // We can also pass in post as that has been destructured as well for us to use on Line 3
 
+
+  const fetchComments = () => {
+    fetch("/comments", {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(async data => {
+        window.localStorage.setItem("token", data.token)
+        setToken(window.localStorage.getItem("token"))
+        setCommentList(data.comments.reverse());
+      })
+  } 
+
+  
   const handleLikeEvent = (event) => {
     handleLikeSubmit(post)
   }
 
+  const handleCommentSubmit = async (event, post_id) => {
+    event.preventDefault()
+
+
+    if(token) {
+      fetch("/comments", {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ text: commentInput, post_id: post_id })
+      }).then(response => {
+        if(response.status === 201) {
+          fetchComments();
+          console.log('Comment has been successfully added');
+        } else {
+          console.log('Something went wrong, comment was not added');
+        }
+      })
+    }
+  }
+
+
+  const handleCreateComment = (event) => {
+    setCommentInput(event.target.value)
+  }
+
+
   return(
-    <article data-cy="post" key={ post._id }>{ post.message } Likes: {post.likes} 
-    <button onClick={handleLikeEvent}>Like button</button>
-    <Comment/>
+    <article data-cy="post" key={ post._id }>{ post.message } Likes: { post.likes } 
+    <button onClick={ handleLikeEvent }>Like button</button>
+    {/* {commentList.map (
+      (comment) => (<Comment post={ post } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } />)
+    )} */}
+  <Comment post={ post } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } commentInput={ commentInput } />
+
     </article>
   )
 }
