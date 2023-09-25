@@ -37,11 +37,13 @@ const Feed = ({ navigate }) => {
         } else {
           console.log('Something went wrong, post was not added')
         }
+      }).then(data => {
+        setMessage("")
       })
     }
   }
   
-  
+
   const fetchPosts = () => {
     fetch("/posts", {
       headers: {
@@ -109,7 +111,6 @@ const Feed = ({ navigate }) => {
           
           <div id='feed' role="feed"  >   
           
-          {/* role seems to be an accessibilty descriptor for screen readers*/}
               {posts.map(
                 (post) => ( <Post post={ post } key={ post._id } handleLikeSubmit={handleLikeSubmit} /> )
               )}
@@ -126,3 +127,9 @@ const Feed = ({ navigate }) => {
 }
 
 export default Feed;
+
+
+// update mongodb schema with comment document
+// fetch request in feed.js to comment doc
+// pass this down to comment.js
+// map through comments to display on frontend
