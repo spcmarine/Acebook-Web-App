@@ -31,10 +31,7 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
     handleLikeSubmit(post)
   }
 
-  const handleCommentSubmit = async (event, post_id) => {
-    event.preventDefault()
-
-
+  const handleCommentSubmit = async (post_id) => {
     if(token) {
       fetch("/comments", {
         method: 'POST',
@@ -42,7 +39,7 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
           'Authorization': `Bearer ${token}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ text: commentInput, post_id: post_id })
+        body: JSON.stringify({ message: commentInput, post_id: post_id })
       }).then(response => {
         if(response.status === 201) {
           fetchComments();
@@ -66,7 +63,7 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
     {/* {commentList.map (
       (comment) => (<Comment post={ post } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } />)
     )} */}
-  <Comment post={ post } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } commentInput={ commentInput } />
+    <Comment post={ post } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } commentInput={ commentInput } />
 
     </article>
   )

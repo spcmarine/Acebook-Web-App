@@ -7,8 +7,8 @@ const Comment = ({post, handleCommentSubmit, handleCreateComment, comment, comme
         setShowForm(!showForm);
     }
 
-    const handleCommentChange = () => {
-        handleCreateComment();
+    const handleCommentChange = (event) => {
+        handleCreateComment(event);
     }
 
     const handleCommentEvent = (event) => {
@@ -17,13 +17,12 @@ const Comment = ({post, handleCommentSubmit, handleCreateComment, comment, comme
 
     return(
         <>
-
         <form>
             <input id="submit" type='button' value="Comments" onClick={handleShowFormEvent}/>
         </form>
 
         {showForm && (
-        <article> {comment.message}
+        <article>
         <form onSubmit={handleCommentEvent}>
         <input placeholder="Write your comment here" id="newComment" type="text" value={commentInput} onChange={handleCommentChange}/>
         <input id="submit" type="submit" value="Create Comment" />
