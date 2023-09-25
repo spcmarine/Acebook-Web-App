@@ -86,6 +86,7 @@ const Feed = ({ navigate }) => {
 
   }
   
+  
     if(token) {                                 //change to name
       return(
         <>
