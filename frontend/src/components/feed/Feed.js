@@ -97,7 +97,7 @@ const Feed = ({ navigate }) => {
         <>
         
 
-        <h6>User : <i className="text-info fw-bold" style={{ color: '#3a405a' }}>{ userEmail}</i></h6> 
+        <h6>User : <i className="text-info fw-bold" style={{ color: '#cc8b86' }}>{ userEmail}</i></h6> 
         <br></br>
         
           <h1 className=" d-flex justify-content-center ml-5">Posts</h1>
@@ -108,7 +108,7 @@ const Feed = ({ navigate }) => {
               <div className="w-75">
                 <form onSubmit={handleSubmit} className="d-flex flex-column" >
                   <input placeholder="Write your message here" className="form-control" id="newPost"  type="text" value= { message } onChange={handleCreatePost} /> 
-                  <input id="submit" type="submit" className="btn mt-1 force-blue-background" style={{ color: '#fffbff' }} value="Create Post" />
+                  <input id="submit" type="submit" className="btn mt-1 powder-blue-background custom-shadow-2" style={{ color: '#fffbff' }} value="Create Post" />
                 </form>
               </div>
             </div>
