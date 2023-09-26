@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Post from '../post/Post';
 import Navbar from '../Navbar';
 import './Feed.css';
+import '../app/App.css'
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
@@ -98,7 +99,7 @@ const Feed = ({ navigate }) => {
         <h6>User : <i className="text-info fw-bold">{ userEmail}</i></h6> 
         <br></br>
         
-          <h2 className=" d-flex justify-content-center ml-5 text-primary display-1">Posts</h2>
+          <h1 className=" d-flex justify-content-center ml-5 text-primary">Posts</h1>
             {/* <button onClick={logout}>
               Logout
             </button> */}
