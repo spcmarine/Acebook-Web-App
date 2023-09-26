@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../post/Post';
 import Navbar from '../Navbar';
+import './Feed.css';
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
@@ -86,6 +87,7 @@ const Feed = ({ navigate }) => {
 
   }
   
+  
     if(token) {                                 //change to name
       return(
         <>
@@ -96,16 +98,17 @@ const Feed = ({ navigate }) => {
         <h6>User : <i className="text-info fw-bold">{ userEmail}</i></h6> 
         <br></br>
         
-          <h2 className=" d-flex justify-content-start ml-5 text-primary">Posts</h2>
+          <h2 className=" d-flex justify-content-center ml-5 text-primary display-1">Posts</h2>
             {/* <button onClick={logout}>
               Logout
             </button> */}
-            <div  role="document">
-            <form onSubmit={handleSubmit} className="d-inline-flex" >
-              <input placeholder="Write your message here" className="form-control" id="newPost"  type="text" value= { message } onChange={handleCreatePost}/> 
-              <input id="submit" type="submit" className="btn btn-primary" value="Create Post" />
-
-            </form>
+            <div  role="document" className="container d-flex justify-content-center align-items-center p-4">
+              <div className="w-75">
+                <form onSubmit={handleSubmit} className="d-flex flex-column" >
+                  <input placeholder="Write your message here" className="form-control" id="newPost"  type="text" value= { message } onChange={handleCreatePost} /> 
+                  <input id="submit" type="submit" className="btn btn-primary mt-1" value="Create Post" />
+                </form>
+              </div>
             </div>
   
           
