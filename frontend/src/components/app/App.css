@@ -3,10 +3,17 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
+    background-color: #fffbff;
 }
 
-.title-font {
+/* .title-font {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 100%;
+} */
+
+h1 {
+    font-size: min(max(14px, 6vw), 80px);
+    color: #3a405a;
 }
+

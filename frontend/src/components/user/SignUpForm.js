@@ -64,7 +64,7 @@ const SignUpForm = ({ navigate }) => {
       <Navbar currentPage="signup" />{
         <div className="d-flex flex-column justify-content-center align-items-center">
       <form onSubmit={handleSubmit} className="d-inline-flex flex-column justify-content-center align-items-center">
-        <h3 className="d-flex justify-content-center ml-5 text-primary display-3 p-3">Sign Up</h3>
+        <h1 className="d-flex justify-content-center ml-5 text-primary p-3">Sign Up</h1>
           <input placeholder="Email" id="email" className="form-control " type='text' value={ email } onChange={handleEmailChange} />
           <input placeholder="Password" id="password" className="form-control" type='password' value={ password } onChange={handlePasswordChange} />
           <input placeholder="First Name" className="form-control" id="first_name" type='text' value={ firstName } onChange={handleFirstNameChange} />

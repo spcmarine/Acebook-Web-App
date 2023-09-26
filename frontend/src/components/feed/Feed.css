@@ -4,3 +4,23 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
 }
+
+.pink-background {
+    background-color: #cc8b86;
+}
+
+.green-background {
+    background-color: #7b9e87
+}
+
+.light-blue-background {
+    background-color: #6ea8fe;
+}
+
+.dark-blue-background {
+    background-color: #3a405a;
+}
+
+.force-blue-background {
+    background-color: #6a8d92;
+}

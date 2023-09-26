@@ -3,6 +3,7 @@ import Post from '../post/Post';
 import Navbar from '../Navbar';
 import './Feed.css';
 import '../app/App.css'
+
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
@@ -96,10 +97,10 @@ const Feed = ({ navigate }) => {
         <>
         
 
-        <h6>User : <i className="text-info fw-bold">{ userEmail}</i></h6> 
+        <h6>User : <i className="text-info fw-bold" style={{ color: '#3a405a' }}>{ userEmail}</i></h6> 
         <br></br>
         
-          <h1 className=" d-flex justify-content-center ml-5 text-primary">Posts</h1>
+          <h1 className=" d-flex justify-content-center ml-5">Posts</h1>
             {/* <button onClick={logout}>
               Logout
             </button> */}
@@ -107,7 +108,7 @@ const Feed = ({ navigate }) => {
               <div className="w-75">
                 <form onSubmit={handleSubmit} className="d-flex flex-column" >
                   <input placeholder="Write your message here" className="form-control" id="newPost"  type="text" value= { message } onChange={handleCreatePost} /> 
-                  <input id="submit" type="submit" className="btn btn-primary mt-1" value="Create Post" />
+                  <input id="submit" type="submit" className="btn mt-1 force-blue-background" style={{ color: '#fffbff' }} value="Create Post" />
                 </form>
               </div>
             </div>
