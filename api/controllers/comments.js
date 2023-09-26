@@ -11,6 +11,13 @@ const CommentsController = {
             res.status(200).json({ comments: comments, token: token });
         })
     },
+    // Index: (req, res) => {
+    //     Comment.findById(req.body.post_id)
+    //     .then((comments) => {
+    //         const token = TokenGenerator.jsonwebtoken(req.user_id)
+    //         res.status(200).json({ comments: comments, token: token });
+    //     });
+    // },
     Create: (req, res) => {
         const comment = new Comment(req.body);
         comment.save((err) => {

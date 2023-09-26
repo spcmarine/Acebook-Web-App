@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
 
-const Comment = ({post, handleCommentSubmit, handleCreateComment, comment, commentInput}) => {
+const Comment = ({comment}) => {
     // const [showForm, setShowForm] = useState(false);
 
     // const handleShowFormEvent = () => {
     //     setShowForm(!showForm);
     // }
 
-    const handleCommentChange = (event) => {
-        handleCreateComment(event);
-    }
+    // const handleCommentChange = (event) => {
+    //     handleCreateComment(event);
+    // }
 
-    const handleCommentEvent = (event) => {
-        handleCommentSubmit(post._id);
-    }
+    // const handleCommentEvent = (event) => {
+    //     handleCommentSubmit(post._id);
+    // }
 
     return(
         <>
         <article> {comment.message}
-        <form onSubmit={handleCommentEvent}>
+        {/* <form onSubmit={handleCommentEvent}>
         <input placeholder="Write your comment here" id="newComment" type="text" value={commentInput} onChange={handleCommentChange}/>
         <input id="submit" type="submit" value="Create Comment" />
-        </form>
+        </form> */}
         </article>
         </>
     )

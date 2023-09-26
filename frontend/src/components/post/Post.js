@@ -27,7 +27,9 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
       .then(async data => {
         window.localStorage.setItem("token", data.token)
         setToken(window.localStorage.getItem("token"))
-        setCommentList(data.comments.reverse());
+
+        const filteredComments = data.comments.filter((comment) => comment.post_id === post._id)
+        setCommentList(filteredComments.reverse());
       })
   } 
 
@@ -56,6 +58,17 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
     }
   }
 
+  // const handleCommentChange = (event) => {
+  //   handleCreateComment(event);
+  // }
+
+  const handleCommentEvent = (event) => {
+    event.preventDefault()
+    
+    handleCommentSubmit(post._id);
+    setCommentInput('');
+  }
+
 
   const handleCreateComment = (event) => {
     setCommentInput(event.target.value)
@@ -65,11 +78,15 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
   return(
     <article data-cy="post" key={ post._id }>{ post.message } Likes: { post.likes } 
     <button onClick={ handleLikeEvent }>Like button</button>
+    
     {commentList.map (
-      (comment) => {return <Comment post={ post } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } />}
+      (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } />}
     )}
-    {/* <Comment post={ post } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } commentInput={ commentInput } /> */}
-
+  
+    <form onSubmit={handleCommentEvent}>
+        <input placeholder="Write your comment here" id="newComment" type="text" value={commentInput} onChange={handleCreateComment}/>
+        <input id="submit" type="submit" value="Create Comment" />
+    </form>
     </article>
   )
 }
