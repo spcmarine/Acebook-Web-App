@@ -63,10 +63,8 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
   const handleViewCommentsEvent = (event) => {
     if (showComments === false) {
       setShowComments(true);
-      console.log(showComments)
     } else {
       setShowComments(false);
-      console.log(showComments)
     }
   }
 
