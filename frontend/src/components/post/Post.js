@@ -3,7 +3,7 @@ import Comment from '../comment/Comment.js'
 
 const Post = ({post, handleLikeSubmit, token, setToken}) => {
   const [commentInput, setCommentInput] = useState("");
-  const [commentList, setCommentList] = useState([]); 
+  const [commentList, setCommentList] = useState([]);
 
   // We have to destructure the handleLikeSubmit because we cannot call a function
   // from a parent component passed down
@@ -58,13 +58,9 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
     }
   }
 
-  // const handleCommentChange = (event) => {
-  //   handleCreateComment(event);
-  // }
-
   const handleCommentEvent = (event) => {
     event.preventDefault()
-    
+
     handleCommentSubmit(post._id);
     setCommentInput('');
   }
