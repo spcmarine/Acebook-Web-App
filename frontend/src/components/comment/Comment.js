@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 const Comment = ({post, handleCommentSubmit, handleCreateComment, comment, commentInput}) => {
-    const [showForm, setShowForm] = useState(false);
+    // const [showForm, setShowForm] = useState(false);
 
-    const handleShowFormEvent = () => {
-        setShowForm(!showForm);
-    }
+    // const handleShowFormEvent = () => {
+    //     setShowForm(!showForm);
+    // }
 
     const handleCommentChange = (event) => {
         handleCreateComment(event);
@@ -17,18 +17,12 @@ const Comment = ({post, handleCommentSubmit, handleCreateComment, comment, comme
 
     return(
         <>
-        <form>
-            <input id="submit" type='button' value="Comments" onClick={handleShowFormEvent}/>
-        </form>
-
-        {showForm && (
-        <article>
+        <article> {comment.message}
         <form onSubmit={handleCommentEvent}>
         <input placeholder="Write your comment here" id="newComment" type="text" value={commentInput} onChange={handleCommentChange}/>
         <input id="submit" type="submit" value="Create Comment" />
         </form>
         </article>
-        )}
         </>
     )
 
