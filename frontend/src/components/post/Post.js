@@ -4,6 +4,7 @@ import Comment from '../comment/Comment.js'
 const Post = ({post, handleLikeSubmit, token, setToken}) => {
   const [commentInput, setCommentInput] = useState("");
   const [commentList, setCommentList] = useState([]);
+  const [showComments, setShowComments] = useState(false);
 
   // We have to destructure the handleLikeSubmit because we cannot call a function
   // from a parent component passed down
@@ -58,11 +59,24 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
     }
   }
 
+
+  const handleViewCommentsEvent = (event) => {
+    if (showComments === false) {
+      setShowComments(true);
+      console.log(showComments)
+    } else {
+      setShowComments(false);
+      console.log(showComments)
+    }
+  }
+
+
   const handleCommentEvent = (event) => {
     event.preventDefault()
 
     handleCommentSubmit(post._id);
     setCommentInput('');
+    setShowComments(true);
   }
 
 
@@ -74,9 +88,12 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
   return(
     <article data-cy="post" key={ post._id }>{ post.message } Likes: { post.likes } 
     <button onClick={ handleLikeEvent }>Like button</button>
+    <button onClick={ handleViewCommentsEvent }>Comments</button>
     
-    {commentList.map (
+    { showComments && (
+    commentList.map (
       (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } />}
+      )
     )}
   
     <form onSubmit={handleCommentEvent}>
