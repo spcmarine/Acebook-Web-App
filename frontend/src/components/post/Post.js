@@ -84,6 +84,7 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
 
 
   return(
+
     <article data-cy="post" key={ post._id }>{ post.message } Likes: { post.likes } 
     <button onClick={ handleLikeEvent }>Like button</button>
     <button onClick={ handleViewCommentsEvent }>Comments</button>
@@ -99,6 +100,7 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
         <input id="submit" type="submit" value="Create Comment" />
     </form>
     </article>
+
   )
 }
 

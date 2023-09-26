@@ -12,7 +12,12 @@ const PostsController = {
     });
   },
   Create: (req, res) => {
-    const post = new Post(req.body);
+    const post = new Post(
+      {
+        message: req.body.message,
+        user: req.user_id,
+        likes: 0
+      })
     post.save((err) => {
       if (err) {
         throw err;
