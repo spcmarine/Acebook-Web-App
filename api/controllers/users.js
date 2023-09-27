@@ -24,8 +24,8 @@ const UsersController = {
         if (err) {
             throw err;
         }
-        const token = TokenGenerator.jsonwebtoken(req.user_id)
-        res.status(200).json({ user: user, token: token });
+
+        res.status(200).json({ user: user});
     })
 },
 };

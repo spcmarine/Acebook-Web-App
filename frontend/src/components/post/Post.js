@@ -50,10 +50,7 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
     })
       .then(response => response.json())
       .then(async data => {
-        window.localStorage.setItem("token", data.token)
         console.log(data)
-        setToken(window.localStorage.getItem("token"))
-        
         const filteredUsers = data.user.filter((user) => user._id === post.user)
         console.log(filteredUsers)
         setUserList(filteredUsers);
