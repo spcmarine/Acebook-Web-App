@@ -97,7 +97,7 @@ const Feed = ({ navigate }) => {
         <>
         
 
-        <h6>User : <i className="text-info fw-bold" style={{ color: '#cc8b86' }}>{ userEmail}</i></h6> 
+        <h6>User : <span className="fw-bold"> { userEmail }</span> </h6> 
         <br></br>
         
           <h1 className=" d-flex justify-content-center ml-5">Posts</h1>
