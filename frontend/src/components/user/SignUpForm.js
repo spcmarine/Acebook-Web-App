@@ -7,7 +7,7 @@ const SignUpForm = ({ navigate }) => {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [profileURL, setProfileURL] = useState("");
+  const [profileURL, setProfileURL] = useState("https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png");
 
 
   const handleSubmit = async (event) => {
@@ -70,6 +70,7 @@ const SignUpForm = ({ navigate }) => {
           <input placeholder="Password" id="password" className="form-control" type='password' value={ password } onChange={handlePasswordChange} />
           <input placeholder="First Name" className="form-control" id="first_name" type='text' value={ firstName } onChange={handleFirstNameChange} />
           <input placeholder="Last Name" className="form-control" id="last_name" type='text' value={ lastName } onChange={handleLastNameChange} />
+          <label for="profile_pic" className="form-label">Insert URL for Default profile picture</label>
           <input placeholder="Profile picture URL" className="form-control" id="profile_pic" type='text' value={ profileURL } onChange={handleprofileURLChange} />
           <div className="d-flex justify-content-end p-3"> 
             <input id='submit' type="submit" className="btn green-background custom-shadow-pink" value="Submit" />
