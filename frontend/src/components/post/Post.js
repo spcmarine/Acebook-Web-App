@@ -2,7 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import Comment from '../comment/Comment.js'
 import './Post.css'
-const Post = ({post, handleLikeSubmit, token, setToken}) => {
+
+  const Post = ({post, handleLikeSubmit, handleDeletePostSubmit, token, setToken}) => {
+
+
   const [commentInput, setCommentInput] = useState("");
   const [commentList, setCommentList] = useState([]);
   const [showComments, setShowComments] = useState(false);
@@ -55,6 +58,7 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
           fetchComments();
           console.log('Comment has been successfully added');
         } else {
+          alert('Error: Please enter a message');
           console.log('Something went wrong, comment was not added');
         }
       })
@@ -72,11 +76,11 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
 
 
   const handleCommentEvent = (event) => {
-    event.preventDefault()
+      event.preventDefault()
 
-    handleCommentSubmit(post._id);
-    setCommentInput('');
-    setShowComments(true);
+      handleCommentSubmit(post._id);
+      setCommentInput('');
+      setShowComments(true);
   }
 
 
@@ -85,8 +89,57 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
   }
 
 
+  const handleLikeCommentSubmit = async (commentObject) => {
+    if(token) {
+      fetch('/comments', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ likedComment: commentObject })
+        }).then(response => {
+          if(response.status === 201) {
+            fetchComments()
+            console.log('Like property has been incremented')
+          } else {
+            console.log('Something went wrong when trying to increment likes')
+          }
+      })
+    }
+  }
+
+
+  const handleDeleteCommentSubmit = async (commentObject) => {
+    if(token) {
+      fetch('/comments', {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ comment: commentObject, token: token})
+      }).then(response => {
+        if(response.status === 201) {
+          fetchComments()
+          console.log('Comment has been deleted')
+        } else {
+          console.log('Something went wrong when trying to delete a comment')
+        }
+      })
+    }
+  }
+
+
+  const handleDeleteEvent = () => {
+    handleDeletePostSubmit(post);
+  }
+
+
+
   return(
-<div className="container d-flex justify-content-center align-items-center p-4 website-font">
+  
+  <div className="container d-flex justify-content-center align-items-center p-4 website-font">
       <article data-cy="post" className='card d-flex text-center w-75 p-3 dark-blue-background' key={ post._id } > 
         <div className="card mb-5 ml-5 mt-5 mr-5 shadow">
         <div className="col text-center text-indigo" >{post.message} </div>
@@ -101,12 +154,13 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
             Heart
           </button>
           <button onClick={ handleViewCommentsEvent }>Comments</button>
+          <button onClick={ handleDeleteEvent }>Delete</button>
                 
-                { showComments && (
-                commentList.map (
-                  (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } />}
-                  )
-                )}
+            { showComments && (
+          commentList.map (
+            (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } handleLikeCommentSubmit={ handleLikeCommentSubmit } handleDeleteCommentSubmit={ handleDeleteCommentSubmit }/>}
+            )
+          )}
 
                 <form onSubmit={handleCommentEvent}>
                 <input placeholder="Write your comment here" id="newComment" type="text" value={commentInput} onChange={handleCreateComment}/>
