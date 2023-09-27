@@ -41,7 +41,3 @@ const PostsController = {
 };
 
 module.exports = PostsController;
-
-// access individiual ids from posts
-// use id to find individual post we want to update
-// use update/updateOne to increment the likes property by one (use $set / $inc ? )
