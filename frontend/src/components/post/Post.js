@@ -88,7 +88,6 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
   return(
 <div className="container d-flex justify-content-center align-items-center p-4 website-font">
       <article data-cy="post" className='card d-flex text-center w-75 p-3 dark-blue-background' key={ post._id } > 
-            { post.message } Likes: { post.likes } 
         <div className="card mb-5 ml-5 mt-5 mr-5 shadow">
         <div className="col text-center text-indigo" >{post.message} </div>
         <div className="d-flex justify-content-start p-3 pb-0"> 
