@@ -82,16 +82,36 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
     setCommentInput(event.target.value)
   }
 
+  const handleLikeCommentSubmit = async (commentObject) => {
+    if(token) {
+      fetch('/comments', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ likedComment: commentObject })
+        }).then(response => {
+          if(response.status === 201) {
+            fetchComments()
+            console.log('Like property has been incremented')
+          } else {
+            console.log('Something went wrong when trying to increment likes')
+          }
+      })
+    }
+  }
+
 
   return(
 
     <article data-cy="post" key={ post._id }>{ post.message } Likes: { post.likes } 
-    <button onClick={ handleLikeEvent }>Like button</button>
+    <button onClick={ handleLikeEvent }>Like</button>
     <button onClick={ handleViewCommentsEvent }>Comments</button>
     
     { showComments && (
     commentList.map (
-      (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } />}
+      (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } handleLikeCommentSubmit={handleLikeCommentSubmit}/>}
       )
     )}
   

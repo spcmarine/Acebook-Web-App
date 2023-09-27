@@ -1,8 +1,15 @@
 import React from 'react';
 
-const Comment = ({comment}) => {
+const Comment = ({comment, handleLikeCommentSubmit}) => {
+
+    const handleLikeEvent = () => {
+        handleLikeCommentSubmit(comment)
+    }
+
     return(
-        <article> {comment.message} </article>
+        <article> {comment.message} Likes: {comment.likes}
+        <button onClick={handleLikeEvent}>Like</button>
+        </article>
     )
 }
 
