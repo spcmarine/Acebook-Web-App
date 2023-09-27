@@ -30,9 +30,8 @@ const PostsController = {
   upVote: (req, res) => {
     const filter = req.body.likedPost._id
     console.log(filter)
-    Post.findByIdAndUpdate(filter, { $inc: {likes: 1} })
+    Post.updateOne({ _id: filter }, { $inc: {likes: 1} })
     .then(post => {
-      post.save()
       const token = TokenGenerator.jsonwebtoken(req.user_id)
       res.status(201).json({ message: 'OK', token: token });
     })
