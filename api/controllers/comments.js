@@ -31,6 +31,20 @@ const CommentsController = {
             const token = TokenGenerator.jsonwebtoken(req.user_id)
             res.status(201).json({ message: 'OK', token: token });
         })
+    },
+    Delete: (req, res) => {
+        const filter = req.body.comment._id
+        console.log(filter)
+        // Comment.findByIdAndDelete(filter)
+        // .then(comment => {
+        //     const token = TokenGenerator.jsonwebtoken(req.user_id)
+        //     res.status(201).json({ message: 'OK', token: token });
+        // })
+        Comment.deleteOne({_id: filter})
+        .then(comment => {
+            const token = TokenGenerator.jsonwebtoken(req.user_id)
+            res.status(201).json({ message: 'OK', token: token });
+        })
     }
 }
 

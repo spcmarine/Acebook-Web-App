@@ -82,6 +82,7 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
     setCommentInput(event.target.value)
   }
 
+
   const handleLikeCommentSubmit = async (commentObject) => {
     if(token) {
       fetch('/comments', {
@@ -103,6 +104,27 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
   }
 
 
+  const handleDeleteCommentSubmit = async (commentObject) => {
+    if(token) {
+      fetch('/comments', {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ comment: commentObject, token: token})
+      }).then(response => {
+        if(response.status === 201) {
+          fetchComments()
+          console.log('Comment has been deleted')
+        } else {
+          console.log('Something went wrong when trying to delete a comment')
+        }
+      })
+    }
+  }
+
+
   return(
 
     <article data-cy="post" key={ post._id }>{ post.message } Likes: { post.likes } 
@@ -111,7 +133,7 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
     
     { showComments && (
     commentList.map (
-      (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } handleLikeCommentSubmit={handleLikeCommentSubmit}/>}
+      (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } handleLikeCommentSubmit={ handleLikeCommentSubmit } handleDeleteCommentSubmit={ handleDeleteCommentSubmit }/>}
       )
     )}
   
