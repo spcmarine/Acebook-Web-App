@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const CommentSchema = new mongoose.Schema({
-    message: String,
+    message: { type: String, required: true },
     likes: {
         type: Number,
         default: 0

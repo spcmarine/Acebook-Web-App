@@ -15,11 +15,11 @@ const CommentsController = {
         const comment = new Comment(req.body);
         comment.save((err) => {
             if (err) {
-                throw err
+                res.status(400).json({ message: 'Bad request' });
+            } else {
+                const token = TokenGenerator.jsonwebtoken(req.user_id)
+                res.status(201).json({ message: "OK", token: token });
             }
-
-            const token = TokenGenerator.jsonwebtoken(req.user_id)
-            res.status(201).json({ message: "OK", token: token });
         })
     },
     upVote: (req, res) => {
@@ -35,12 +35,7 @@ const CommentsController = {
     Delete: (req, res) => {
         const filter = req.body.comment._id
         console.log(filter)
-        // Comment.findByIdAndDelete(filter)
-        // .then(comment => {
-        //     const token = TokenGenerator.jsonwebtoken(req.user_id)
-        //     res.status(201).json({ message: 'OK', token: token });
-        // })
-        Comment.deleteOne({_id: filter})
+        Comment.deleteOne({ _id: filter })
         .then(comment => {
             const token = TokenGenerator.jsonwebtoken(req.user_id)
             res.status(201).json({ message: 'OK', token: token });

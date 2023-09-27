@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Comment from '../comment/Comment.js'
 
-const Post = ({post, handleLikeSubmit, token, setToken}) => {
+const Post = ({post, handleLikeSubmit, handleDeletePostSubmit, token, setToken}) => {
   const [commentInput, setCommentInput] = useState("");
   const [commentList, setCommentList] = useState([]);
   const [showComments, setShowComments] = useState(false);
@@ -53,6 +53,7 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
           fetchComments();
           console.log('Comment has been successfully added');
         } else {
+          alert('Error: Please enter a message');
           console.log('Something went wrong, comment was not added');
         }
       })
@@ -70,11 +71,11 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
 
 
   const handleCommentEvent = (event) => {
-    event.preventDefault()
+      event.preventDefault()
 
-    handleCommentSubmit(post._id);
-    setCommentInput('');
-    setShowComments(true);
+      handleCommentSubmit(post._id);
+      setCommentInput('');
+      setShowComments(true);
   }
 
 
@@ -125,11 +126,19 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
   }
 
 
+  const handleDeleteEvent = () => {
+    handleDeletePostSubmit(post);
+  }
+
+
+
   return(
 
     <article data-cy="post" key={ post._id }>{ post.message } Likes: { post.likes } 
     <button onClick={ handleLikeEvent }>Like</button>
     <button onClick={ handleViewCommentsEvent }>Comments</button>
+    <button onClick={ handleDeleteEvent }>Delete</button>
+
     
     { showComments && (
     commentList.map (
@@ -137,7 +146,7 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
       )
     )}
   
-    <form onSubmit={handleCommentEvent}>
+    <form onSubmit={ handleCommentEvent }>
         <input placeholder="Write your comment here" id="newComment" type="text" value={commentInput} onChange={handleCreateComment}/>
         <input id="submit" type="submit" value="Create Comment" />
     </form>

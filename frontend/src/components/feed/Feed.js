@@ -37,6 +37,7 @@ const Feed = ({ navigate }) => {
           fetchPosts();
           console.log('Post has been successfully added')
         } else {
+          alert('Error: Please enter a message');
           console.log('Something went wrong, post was not added')
         }
       }).then(data => {
@@ -87,6 +88,28 @@ const Feed = ({ navigate }) => {
     }
   }
 
+
+  const handleDeletePostSubmit = async (postObject) => {
+    if(token) {
+      fetch('/posts', {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ post: postObject})
+      }).then(response => {
+        if(response.status === 201) {
+          fetchPosts()
+          console.log('Post has been deleted')
+        } else {
+          console.log('Something went wrong when trying to delete a post')
+        }
+      })
+    }
+  }
+
+
     if(token) {                                 //change to name
       return(
         <>
@@ -116,7 +139,7 @@ const Feed = ({ navigate }) => {
           <div id='feed' role="feed"  >   
           
               {posts.map(
-                (post) => ( <Post post={ post } key={ post._id } handleLikeSubmit={ handleLikeSubmit } token={ token } setToken={ setToken }/> )
+                (post) => ( <Post post={ post } key={ post._id } handleLikeSubmit={ handleLikeSubmit } handleDeletePostSubmit={ handleDeletePostSubmit } token={ token } setToken={ setToken }/> )
               )}
           
           </div>
