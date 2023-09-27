@@ -39,6 +39,15 @@ const CommentsController = {
             const token = TokenGenerator.jsonwebtoken(req.user_id)
             res.status(201).json({ message: 'OK', token: token });
         })
+    },
+    Edit: (req, res) => {
+        const filter = req.body.comment._id
+        const newMessage = req.body.newMessage
+        Comment.updateOne({ _id: filter }, { message: newMessage })
+        .then(comment => {
+            const token = TokenGenerator.jsonwebtoken(req.user_id)
+            res.status(201).json({ message: 'OK', token: token })
+        })
     }
 }
 
