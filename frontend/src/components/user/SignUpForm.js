@@ -6,7 +6,7 @@ const SignUpForm = ({ navigate }) => {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [profileURL, setProfileURL] = useState("");
+  const [profileURL, setProfileURL] = useState("https://i.pinimg.com/736x/a8/57/00/a85700f3c614f6313750b9d8196c08f5.jpg");
 
 
   const handleSubmit = async (event) => {
