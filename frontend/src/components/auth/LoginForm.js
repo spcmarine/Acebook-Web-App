@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Navbar from '../Navbar';
-const LogInForm = ({ navigate }) => {
+import { useNavigate } from "react-router-dom";
+
+const LogInForm = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState(""); // change to name
   const [password, setPassword] = useState("");
 
@@ -45,8 +48,12 @@ const LogInForm = ({ navigate }) => {
         <input placeholder='Email' id="email" className="d-inline-flex form-control" type='text' value={ email } onChange={handleEmailChange} />
         <input placeholder='Password' id="password" className=" d-inline-flex form-control" type='password' value={ password } onChange={handlePasswordChange} />
         <div className="d-flex justify-content-end p-3">
-          <input role='submit-button' className="btn btn-primary" id='submit' type="submit" value="Submit" />
+          <input className="btn btn-primary" id='submit' type="submit" value="Submit" />
         </div>
+        <div className='text-muted d-flex justify-content-center'>
+        <p onClick={() => navigate('/signup')}>Don't have an account? <i className="text-primary">Sign up here</i></p>
+        </div>
+        
       </form>
       </div>
       
