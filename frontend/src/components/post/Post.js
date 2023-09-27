@@ -5,6 +5,8 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
   const [commentInput, setCommentInput] = useState("");
   const [commentList, setCommentList] = useState([]);
   const [showComments, setShowComments] = useState(false);
+  const [userList, setUserList] = useState([]);
+  
 
   // We have to destructure the handleLikeSubmit because we cannot call a function
   // from a parent component passed down
@@ -15,6 +17,12 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
   useEffect(() => {
     if(token) {
       fetchComments();
+    }
+  }, [])
+
+  useEffect(() => {
+    if(token) {
+      fetchUsers();
     }
   }, [])
 
@@ -33,6 +41,27 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
         setCommentList(filteredComments.reverse());
       })
   } 
+
+  const fetchUsers = () => {
+    fetch("/users", {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(async data => {
+        window.localStorage.setItem("token", data.token)
+        console.log(data)
+        setToken(window.localStorage.getItem("token"))
+        
+        const filteredUsers = data.user.filter((user) => user._id === post.user)
+        console.log(filteredUsers)
+        setUserList(filteredUsers);
+        
+      })
+  }
+
+  
 
   
   const handleLikeEvent = (event) => {
@@ -85,7 +114,9 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
 
   return(
 
-    <article data-cy="post" key={ post._id }>{ post.message } Likes: { post.likes } 
+    <article data-cy="post" key={ post._id }>
+      {userList.length > 0 && <p>Author: {userList[0].firstName} {userList[0].lastName}</p>}
+      { post.message } Likes: { post.likes } 
     <button onClick={ handleLikeEvent }>Like button</button>
     <button onClick={ handleViewCommentsEvent }>Comments</button>
     
