@@ -12,8 +12,8 @@ const Comment = ({comment, handleLikeCommentSubmit, handleDeleteCommentSubmit}) 
 
     return(
         <article> {comment.message} Likes: {comment.likes}
-        <button onClick={ handleLikeEvent }>Like</button>
-        <button onClick={ handleDeleteEvent }>Delete</button>
+        <button className='btn btn-success'onClick={ handleLikeEvent }>Like</button>
+        <button className='btn btn-danger'onClick={ handleDeleteEvent }>Delete</button>
         </article>
     )
 }

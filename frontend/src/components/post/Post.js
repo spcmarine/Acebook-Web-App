@@ -78,7 +78,7 @@ import './Post.css'
           'Authorization': `Bearer ${token}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ message: commentInput, post_id: post_id, user_id: token })
+        body: JSON.stringify({ message: commentInput, post_id: post_id })
       }).then(response => {
         if(response.status === 201) {
           fetchComments();
@@ -190,7 +190,7 @@ import './Post.css'
 
                 <form onSubmit={handleCommentEvent}>
                 <input placeholder="Write your comment here" id="newComment" type="text" value={commentInput} onChange={handleCreateComment}/>
-                <input id="submit" type="submit" value="Create Comment" />
+                <input className='btn btn-success' id="submit" type="submit" value="Create Comment" />
             </form>
         </div>
         </div>
