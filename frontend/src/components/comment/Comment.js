@@ -2,24 +2,33 @@ import React, { useState } from 'react';
 
 const Comment = ({comment, handleLikeCommentSubmit, handleDeleteCommentSubmit}) => {
     const [showEditForm, setShowEditForm] = useState(false);
-    const [editComment, setEditComment] = useState('')
+    const [editComment, setEditComment] = useState("");
 
 
     const handleViewEditForm = (event) => {
         if (showEditForm === false) {
-          setShowEditForm(true);
+            setShowEditForm(true);
         } else {
-          setShowEditForm(false);
+            setShowEditForm(false);
         }
-      }
+    }
+
 
     const handleLikeEvent = () => {
-        handleLikeCommentSubmit(comment)
+        handleLikeCommentSubmit(comment);
     }
+
+
+    const handleEditCommentEvent = (event) => {
+        setEditComment(event.target.value);
+    }
+
 
     const handleDeleteEvent = () => {
         handleDeleteCommentSubmit(comment);
     }
+
+
 
     return(
         <article> {comment.message} Likes: {comment.likes}
@@ -27,8 +36,8 @@ const Comment = ({comment, handleLikeCommentSubmit, handleDeleteCommentSubmit}) 
         <button onClick={ handleViewEditForm }>Edit Comment</button>
 
         { showEditForm && 
-            <form onSubmit={handleEditCommentEvent}>
-            <input placeholder="Write your comment here" id="newComment" type="text" value={editCommentInput} onChange={handleEditComment}/>
+            <form onSubmit={ handleEditCommentEvent }>
+            <input placeholder="Write your comment here" id="newComment" type="text" value={ editCommentInput } onChange={ handleEditComment }/>
             <input id="submit" type="submit" value="Create Comment" />
             </form>
         }

@@ -23,6 +23,7 @@ import './Post.css'
     }
   }, [])
 
+
   const fetchComments = () => {
     fetch("/comments", {
       headers: {
@@ -39,11 +40,12 @@ import './Post.css'
       })
   } 
 
-  
+
   const handleLikeEvent = (event) => {
     handleLikeSubmit(post)
   }
 
+  
   const handleCommentSubmit = async (post_id) => {
     if(token) {
       fetch("/comments", {
