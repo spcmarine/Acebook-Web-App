@@ -1,4 +1,4 @@
-
+import Feed from '../feed/Feed.js';
 import React, { useEffect, useState } from 'react';
 import Comment from '../comment/Comment.js'
 import './Post.css'
@@ -71,6 +71,7 @@ import './Post.css'
   }
 
   const handleCommentSubmit = async (post_id) => {
+    
     if(token) {
       fetch("/comments", {
         method: 'POST',
@@ -190,7 +191,7 @@ import './Post.css'
 
                 <form onSubmit={handleCommentEvent}>
                 <input placeholder="Write your comment here" id="newComment" type="text" value={commentInput} onChange={handleCreateComment}/>
-                <input className='btn btn-success' id="submit" type="submit" value="Create Comment" />
+                <input className='btn btn-success' id="submit" type="submit" value="Create Comment"  />
             </form>
         </div>
         </div>
