@@ -91,6 +91,28 @@ const Feed = ({ navigate }) => {
   }
 
 
+  const handleEditPostSubmit = async (newPost, postObject) => {
+    if(token) {
+      fetch("/posts/posts", {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: newPost, post: postObject })
+      }).then(response => {
+        if(response.status === 201) {
+          fetchPosts();
+          console.log('Post has been successfully edited');
+        } else {
+          alert('Error: Please enter a message');
+          console.log('Something went wrong, post was not edited');
+        }
+      })
+    }
+  }
+
+
   const handleDeletePostSubmit = async (postObject) => {
     if(token) {
       fetch('/posts', {
@@ -141,7 +163,7 @@ const Feed = ({ navigate }) => {
           <div id='feed' role="feed"  >   
           
               {posts.map(
-                (post) => ( <Post post={ post } key={ post._id } handleLikeSubmit={ handleLikeSubmit } handleDeletePostSubmit={ handleDeletePostSubmit } token={ token } setToken={ setToken }/> )
+                (post) => ( <Post post={ post } key={ post._id } handleLikeSubmit={ handleLikeSubmit } handleEditPostSubmit={ handleEditPostSubmit } handleDeletePostSubmit={ handleDeletePostSubmit } token={ token } setToken={ setToken }/> )
               )}
           
           </div>

@@ -3,14 +3,16 @@ import React, { useEffect, useState } from 'react';
 import Comment from '../comment/Comment.js'
 import './Post.css'
 
-  const Post = ({post, handleLikeSubmit, handleDeletePostSubmit, token, setToken}) => {
-
-
+const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSubmit, token, setToken}) => {
   const [commentInput, setCommentInput] = useState("");
   const [commentList, setCommentList] = useState([]);
   const [showComments, setShowComments] = useState(false);
+
+  const [showEditPostForm, setShowEditPostForm] = useState(false);
+  const [editPostInput, setEditPostInput] = useState("");
   const [userList, setUserList] = useState([]);
   
+
 
 
   // We have to destructure the handleLikeSubmit because we cannot call a function
@@ -25,11 +27,13 @@ import './Post.css'
     }
   }, [])
 
+
   useEffect(() => {
     if(token) {
       fetchUsers();
     }
   }, [])
+
 
   const fetchComments = () => {
     fetch("/comments", {
@@ -46,6 +50,7 @@ import './Post.css'
         setCommentList(filteredComments.reverse());
       })
   } 
+
 
   const fetchUsers = () => {
     fetch("/users", {
@@ -64,11 +69,10 @@ import './Post.css'
   }
 
   
-
-  
   const handleLikeEvent = (event) => {
     handleLikeSubmit(post)
   }
+
 
   const handleCommentSubmit = async (post_id) => {
     if(token) {
@@ -98,6 +102,28 @@ import './Post.css'
     } else {
       setShowComments(false);
     }
+  }
+
+
+  const handleViewEditPostForm = (event) => {
+    if (showEditPostForm === false) {
+        setShowEditPostForm(true);
+    } else {
+        setShowEditPostForm(false);
+    }
+  }
+
+
+  const handleEditPostEvent = (event) => {
+    setEditPostInput(event.target.value);
+  }
+
+
+  const handleEditPostSubmitForm = (event) => {
+    event.preventDefault()
+
+    handleEditPostSubmit(editPostInput, post);
+    setEditPostInput('');
   }
 
 
@@ -134,6 +160,31 @@ import './Post.css'
       })
     }
   }
+
+
+
+  const handleEditCommentSubmit = async (newComment, commentObject) => {
+    if(token) {
+      fetch("/comments/comments", {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: newComment, comment: commentObject })
+      }).then(response => {
+        if(response.status === 201) {
+          fetchComments();
+          console.log('Comment has been successfully edited');
+        } else {
+          alert('Error: Please enter a message');
+          console.log('Something went wrong, comment was not edited');
+        }
+      })
+    }
+  }
+
+
 
   const handleDeleteCommentSubmit = async (commentObject) => {
     if(token) {
@@ -180,13 +231,23 @@ import './Post.css'
             Heart
           </button>
           <button onClick={ handleViewCommentsEvent }>Comments</button>
+          <button onClick={ handleViewEditPostForm }>Edit</button>
+
+          { showEditPostForm && 
+            <form onSubmit={ handleEditPostSubmitForm }>
+            <input placeholder="Write your post here" id="newPost" type="text" value={ editPostInput } onChange={ handleEditPostEvent }/>
+            <input id="submit" type="submit" value="Submit" />
+            </form>
+          }
+
           <button onClick={ handleDeleteEvent }>Delete</button>
                 
             { showComments && (
           commentList.map (
-            (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } handleLikeCommentSubmit={ handleLikeCommentSubmit } handleDeleteCommentSubmit={ handleDeleteCommentSubmit }/>}
+            (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } handleLikeCommentSubmit={ handleLikeCommentSubmit } handleEditCommentSubmit={handleEditCommentSubmit} handleDeleteCommentSubmit={ handleDeleteCommentSubmit }/>}
             )
           )}
+
 
                 <form onSubmit={handleCommentEvent}>
                 <input placeholder="Write your comment here" id="newComment" type="text" value={commentInput} onChange={handleCreateComment}/>
