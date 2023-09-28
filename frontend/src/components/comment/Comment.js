@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-const Comment = ({comment, handleLikeCommentSubmit, handleDeleteCommentSubmit}) => {
+const Comment = ({comment, handleLikeCommentSubmit, handleEditCommentSubmit, handleDeleteCommentSubmit}) => {
     const [showEditForm, setShowEditForm] = useState(false);
-    const [editComment, setEditComment] = useState("");
+    const [editCommentInput, setEditCommentInput] = useState("");
 
 
     const handleViewEditForm = (event) => {
@@ -20,7 +20,15 @@ const Comment = ({comment, handleLikeCommentSubmit, handleDeleteCommentSubmit}) 
 
 
     const handleEditCommentEvent = (event) => {
-        setEditComment(event.target.value);
+        setEditCommentInput(event.target.value);
+    }
+
+
+    const handleEditCommentSubmitForm = (event) => {
+        event.preventDefault()
+
+        handleEditCommentSubmit(editCommentInput, comment);
+        setEditCommentInput('');
     }
 
 
@@ -36,9 +44,9 @@ const Comment = ({comment, handleLikeCommentSubmit, handleDeleteCommentSubmit}) 
         <button onClick={ handleViewEditForm }>Edit Comment</button>
 
         { showEditForm && 
-            <form onSubmit={ handleEditCommentEvent }>
-            <input placeholder="Write your comment here" id="newComment" type="text" value={ editCommentInput } onChange={ handleEditComment }/>
-            <input id="submit" type="submit" value="Create Comment" />
+            <form onSubmit={ handleEditCommentSubmitForm }>
+            <input placeholder="Write your comment here" id="newComment" type="text" value={ editCommentInput } onChange={ handleEditCommentEvent }/>
+            <input id="submit" type="submit" value="Submit" />
             </form>
         }
 

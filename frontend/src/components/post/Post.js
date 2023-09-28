@@ -45,7 +45,7 @@ import './Post.css'
     handleLikeSubmit(post)
   }
 
-  
+
   const handleCommentSubmit = async (post_id) => {
     if(token) {
       fetch("/comments", {
@@ -112,6 +112,28 @@ import './Post.css'
   }
 
 
+  const handleEditCommentSubmit = async (newComment, commentObject) => {
+    if(token) {
+      fetch("/comments/comments", {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: newComment, comment: commentObject })
+      }).then(response => {
+        if(response.status === 201) {
+          fetchComments();
+          console.log('Comment has been successfully edited');
+        } else {
+          alert('Error: Please enter a message');
+          console.log('Something went wrong, comment was not edited');
+        }
+      })
+    }
+  }
+
+
   const handleDeleteCommentSubmit = async (commentObject) => {
     if(token) {
       fetch('/comments', {
@@ -160,7 +182,7 @@ import './Post.css'
                 
             { showComments && (
           commentList.map (
-            (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } handleLikeCommentSubmit={ handleLikeCommentSubmit } handleDeleteCommentSubmit={ handleDeleteCommentSubmit }/>}
+            (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } handleLikeCommentSubmit={ handleLikeCommentSubmit } handleEditCommentSubmit={handleEditCommentSubmit} handleDeleteCommentSubmit={ handleDeleteCommentSubmit }/>}
             )
           )}
 

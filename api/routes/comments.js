@@ -7,7 +7,7 @@ router.get("/", CommentsController.Index);
 router.post("/", CommentsController.Create);
 router.put("/", CommentsController.upVote);
 router.delete("/", CommentsController.Delete);
-router.put('/edit_comment', CommentsController.Edit);
+router.put('/comments', CommentsController.Edit);
 
 
 module.exports = router;
