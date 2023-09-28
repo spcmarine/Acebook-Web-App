@@ -3,12 +3,34 @@ import Post from '../post/Post';
 import Navbar from '../Navbar';
 import './Feed.css';
 import '../app/App.css'
+import axios from "axios";
 
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userEmail, setUserEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [res, setRes] = useState({});
+  const [file, setFile] = useState(null);
+
+  const handleSelectFile = (e) => setFile(e.target.files[0]); 
+  
+  const uploadFile = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const data = new FormData();
+    data.set("sample_file", file);
+    try {
+      const res = await axios.post("/images", data);
+      // setRes(res.data);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
   useEffect(() => {
@@ -89,6 +111,8 @@ const Feed = ({ navigate }) => {
     }
   }
 
+  
+
     if(token) {                                 //change to name
       return(
         <>
@@ -103,6 +127,41 @@ const Feed = ({ navigate }) => {
             {/* <button onClick={logout}>
               Logout
             </button> */}
+
+<div className="App">
+      <label htmlFor="file" className="btn-grey">
+        {" "}
+        select file
+      </label>
+
+      <input
+        id="file"
+        type="file"
+        onChange={handleSelectFile}
+        multiple={false}
+      />
+      {file && <p className="file_name">{file.name}</p>}
+      <code>
+        {Object.keys(res).map(
+          (key) =>
+            key && (
+              <p className="output-item" key={key}>
+                <span>{key}:</span>
+                <span>
+                  {typeof res[key] === "object" ? "object" : res[key]}
+                </span>
+              </p>
+            )
+        )}
+      </code>
+      {file && (
+        <>
+          <button className="btn-green" onClick={uploadFile}>
+            {loading ? "uploading..." : "upload to Cloudinary"}
+          </button>
+        </>
+      )}
+    </div>
 
             <div  role="document" className="container d-flex justify-content-center align-items-center p-4">
               <div className="w-75">
