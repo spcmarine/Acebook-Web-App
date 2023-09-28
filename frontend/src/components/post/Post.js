@@ -7,8 +7,12 @@ const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSub
   const [commentInput, setCommentInput] = useState("");
   const [commentList, setCommentList] = useState([]);
   const [showComments, setShowComments] = useState(false);
+
   const [showEditPostForm, setShowEditPostForm] = useState(false);
   const [editPostInput, setEditPostInput] = useState("");
+  const [userList, setUserList] = useState([]);
+  
+
 
 
   // We have to destructure the handleLikeSubmit because we cannot call a function
@@ -20,6 +24,13 @@ const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSub
   useEffect(() => {
     if(token) {
       fetchComments();
+    }
+  }, [])
+
+
+  useEffect(() => {
+    if(token) {
+      fetchUsers();
     }
   }, [])
 
@@ -41,6 +52,23 @@ const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSub
   } 
 
 
+  const fetchUsers = () => {
+    fetch("/users", {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(async data => {
+        console.log(data)
+        const filteredUsers = data.user.filter((user) => user._id === post.user)
+        console.log(filteredUsers)
+        setUserList(filteredUsers);
+        
+      })
+  }
+
+  
   const handleLikeEvent = (event) => {
     handleLikeSubmit(post)
   }
@@ -134,6 +162,7 @@ const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSub
   }
 
 
+
   const handleEditCommentSubmit = async (newComment, commentObject) => {
     if(token) {
       fetch("/comments/comments", {
@@ -154,6 +183,7 @@ const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSub
       })
     }
   }
+
 
 
   const handleDeleteCommentSubmit = async (commentObject) => {
@@ -187,6 +217,7 @@ const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSub
   
   <div className="container d-flex justify-content-center align-items-center p-4 website-font">
       <article data-cy="post" className='card d-flex text-center w-75 p-3 dark-blue-background' key={ post._id } > 
+      {userList.length > 0 && <p className='text-light'>Author: <img className='profileImage' src={userList[0].profileURL} alt= "profile image" title='User Image'/> {userList[0].firstName} {userList[0].lastName}</p>}
         <div className="card mb-5 ml-5 mt-5 mr-5 shadow">
         <div className="col text-center text-indigo" >{post.message} </div>
         <div className="d-flex justify-content-start p-3 pb-0"> 
