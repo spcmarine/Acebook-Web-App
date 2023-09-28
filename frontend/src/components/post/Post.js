@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react';
 import Comment from '../comment/Comment.js'
 import './Post.css'
 
-  const Post = ({post, handleLikeSubmit, handleDeletePostSubmit, token, setToken}) => {
-
-
+const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSubmit, token, setToken}) => {
   const [commentInput, setCommentInput] = useState("");
   const [commentList, setCommentList] = useState([]);
   const [showComments, setShowComments] = useState(false);
+  const [showEditPostForm, setShowEditPostForm] = useState(false);
+  const [editPostInput, setEditPostInput] = useState("");
 
 
   // We have to destructure the handleLikeSubmit because we cannot call a function
@@ -74,6 +74,28 @@ import './Post.css'
     } else {
       setShowComments(false);
     }
+  }
+
+
+  const handleViewEditPostForm = (event) => {
+    if (showEditPostForm === false) {
+        setShowEditPostForm(true);
+    } else {
+        setShowEditPostForm(false);
+    }
+  }
+
+
+  const handleEditPostEvent = (event) => {
+    setEditPostInput(event.target.value);
+  }
+
+
+  const handleEditPostSubmitForm = (event) => {
+    event.preventDefault()
+
+    handleEditPostSubmit(editPostInput, post);
+    setEditPostInput('');
   }
 
 
@@ -178,6 +200,15 @@ import './Post.css'
             Heart
           </button>
           <button onClick={ handleViewCommentsEvent }>Comments</button>
+          <button onClick={ handleViewEditPostForm }>Edit</button>
+
+          { showEditPostForm && 
+            <form onSubmit={ handleEditPostSubmitForm }>
+            <input placeholder="Write your post here" id="newPost" type="text" value={ editPostInput } onChange={ handleEditPostEvent }/>
+            <input id="submit" type="submit" value="Submit" />
+            </form>
+          }
+
           <button onClick={ handleDeleteEvent }>Delete</button>
                 
             { showComments && (
@@ -185,6 +216,7 @@ import './Post.css'
             (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } handleLikeCommentSubmit={ handleLikeCommentSubmit } handleEditCommentSubmit={handleEditCommentSubmit} handleDeleteCommentSubmit={ handleDeleteCommentSubmit }/>}
             )
           )}
+
 
                 <form onSubmit={handleCommentEvent}>
                 <input placeholder="Write your comment here" id="newComment" type="text" value={commentInput} onChange={handleCreateComment}/>

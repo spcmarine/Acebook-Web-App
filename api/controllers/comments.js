@@ -43,11 +43,15 @@ const CommentsController = {
     Edit: (req, res) => {
         const filter = req.body.comment._id
         const newMessage = req.body.message
-        Comment.updateOne({ _id: filter }, { message: newMessage })
-        .then(comment => {
-            const token = TokenGenerator.jsonwebtoken(req.user_id)
-            res.status(201).json({ message: 'OK', token: token })
-        })
+        if (newMessage === '') {
+            res.status(400).json({ message: 'Bad Request' })
+        } else {
+            Comment.updateOne({ _id: filter }, { message: newMessage })
+            .then(comment => {
+                const token = TokenGenerator.jsonwebtoken(req.user_id)
+                res.status(201).json({ message: 'OK', token: token })
+            })
+        }
     }
 }
 
