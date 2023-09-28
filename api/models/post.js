@@ -1,17 +1,17 @@
 const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema({
-  message: String, 
+  message: { type: String, required: true },
   likes: {
     type: Number,
     default: 0
     },
-   user: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   }
 
-   
+
 });
 
 const Post = mongoose.model("Post", PostSchema);

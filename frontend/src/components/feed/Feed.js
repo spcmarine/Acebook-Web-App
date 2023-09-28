@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Post from '../post/Post';
 import Navbar from '../Navbar';
 import './Feed.css';
+import '../app/App.css'
+
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
@@ -37,6 +39,7 @@ const Feed = ({ navigate }) => {
           fetchPosts();
           console.log('Post has been successfully added')
         } else {
+          alert('Error: Please enter a message');
           console.log('Something went wrong, post was not added')
         }
       }).then(data => {
@@ -87,6 +90,28 @@ const Feed = ({ navigate }) => {
     }
   }
 
+
+  const handleDeletePostSubmit = async (postObject) => {
+    if(token) {
+      fetch('/posts', {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ post: postObject})
+      }).then(response => {
+        if(response.status === 201) {
+          fetchPosts()
+          console.log('Post has been deleted')
+        } else {
+          console.log('Something went wrong when trying to delete a post')
+        }
+      })
+    }
+  }
+
+
     if(token) {                                 //change to name
       return(
         <>
@@ -94,10 +119,10 @@ const Feed = ({ navigate }) => {
         <>
         
 
-        <h6>User : <i className="text-info fw-bold">{ userEmail}</i></h6> 
+        <h6>User : <span className="fw-bold"> { userEmail }</span> </h6> 
         <br></br>
         
-          <h2 className=" d-flex justify-content-center ml-5 text-primary display-1">Posts</h2>
+          <h1 className=" d-flex justify-content-center ml-5">Posts</h1>
             {/* <button onClick={logout}>
               Logout
             </button> */}
@@ -106,7 +131,7 @@ const Feed = ({ navigate }) => {
               <div className="w-75">
                 <form onSubmit={handleSubmit} className="d-flex flex-column" >
                   <input placeholder="Write your message here" className="form-control" id="newPost"  type="text" value= { message } onChange={handleCreatePost} /> 
-                  <input id="submit" type="submit" className="btn btn-primary mt-1" value="Create Post" />
+                  <input id="submit" type="submit" className="btn mt-1 powder-blue-background custom-shadow-2" style={{ color: '#fffbff' }} value="Create Post" />
                 </form>
               </div>
 
@@ -116,7 +141,7 @@ const Feed = ({ navigate }) => {
           <div id='feed' role="feed"  >   
           
               {posts.map(
-                (post) => ( <Post post={ post } key={ post._id } handleLikeSubmit={ handleLikeSubmit } token={ token } setToken={ setToken }/> )
+                (post) => ( <Post post={ post } key={ post._id } handleLikeSubmit={ handleLikeSubmit } handleDeletePostSubmit={ handleDeletePostSubmit } token={ token } setToken={ setToken }/> )
               )}
           
           </div>

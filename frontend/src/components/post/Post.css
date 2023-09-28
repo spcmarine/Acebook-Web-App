@@ -1,5 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
 
-body {
-    font-family: 'Playfair Display', serif;
+.text-indigo {
+    color: #3a405a;
+}
+
+.pink-background {
+    background-color: #cc8b86;
+}
+
+.green-background {
+    background-color: #7b9e87;
+}
+
+.light-blue-background {
+    background-color: #6ea8fe;
+}
+
+.dark-blue-background {
+    background-color: #3a405a;
+}
+
+.custom-shadow-1:hover {
+    background-color: #7b9e87;
 }
