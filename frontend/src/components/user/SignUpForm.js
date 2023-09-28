@@ -37,8 +37,8 @@ const SignUpForm = () => {
         }
       })
   }
-  const handleInputChange = (event, setState) => {
-    setState(event.target.value);
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   }
   
 
@@ -62,7 +62,7 @@ const SignUpForm = () => {
     return (
 
       <>
-      <Navbar currentPage="signup" />{
+      <Navbar currentPage="signup" />
         <div className="d-flex flex-column justify-content-center align-items-center">
       <form onSubmit={handleSubmit} className="d-inline-flex flex-column justify-content-center align-items-center">
         <h1 className="d-flex justify-content-center ml-5 text-indigo p-3">Sign Up</h1>
@@ -82,7 +82,7 @@ const SignUpForm = () => {
         </form>
       </div>
     </>
-  );
+      );
 
 }
 export default SignUpForm;

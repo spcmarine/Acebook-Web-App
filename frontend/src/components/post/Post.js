@@ -135,24 +135,6 @@ import './Post.css'
     }
   }
 
-    <article data-cy="post" key={ post._id }>
-      {userList.length > 0 && <p>Author: {userList[0].firstName} {userList[0].lastName}</p>}
-      { post.message } Likes: { post.likes } 
-    <button onClick={ handleLikeEvent }>Like button</button>
-    <button onClick={ handleViewCommentsEvent }>Comments</button>
-    
-    { showComments && (
-    commentList.map (
-      (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } />}
-      )
-    )}
-  
-    <form onSubmit={handleCommentEvent}>
-        <input placeholder="Write your comment here" id="newComment" type="text" value={commentInput} onChange={handleCreateComment}/>
-        <input id="submit" type="submit" value="Create Comment" />
-    </form>
-    </article>
-
   const handleDeleteCommentSubmit = async (commentObject) => {
     if(token) {
       fetch('/comments', {
@@ -184,6 +166,7 @@ import './Post.css'
   
   <div className="container d-flex justify-content-center align-items-center p-4 website-font">
       <article data-cy="post" className='card d-flex text-center w-75 p-3 dark-blue-background' key={ post._id } > 
+      {userList.length > 0 && <p className='text-light'>Author: {userList[0].firstName} {userList[0].lastName}</p>}
         <div className="card mb-5 ml-5 mt-5 mr-5 shadow">
         <div className="col text-center text-indigo" >{post.message} </div>
         <div className="d-flex justify-content-start p-3 pb-0"> 
