@@ -41,7 +41,7 @@ import './Post.css'
       .then(async data => {
         window.localStorage.setItem("token", data.token)
         setToken(window.localStorage.getItem("token"))
-
+        
         const filteredComments = data.comments.filter((comment) => comment.post_id === post._id)
         setCommentList(filteredComments.reverse());
       })
@@ -78,7 +78,7 @@ import './Post.css'
           'Authorization': `Bearer ${token}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ message: commentInput, post_id: post_id })
+        body: JSON.stringify({ message: commentInput, post_id: post_id, user_id: token })
       }).then(response => {
         if(response.status === 201) {
           fetchComments();
@@ -179,8 +179,8 @@ import './Post.css'
           <button className="btn btn-sm pink-background custom-shadow-1" style={{ width: '70px', height: '30px' }} onClick={handleLikeEvent}>
             Heart
           </button>
-          <button onClick={ handleViewCommentsEvent }>Comments</button>
-          <button onClick={ handleDeleteEvent }>Delete</button>
+          <button className='btn btn-primary' onClick={ handleViewCommentsEvent }>Comments</button>
+          <button className='btn btn-primary'  onClick={ handleDeleteEvent }>Delete</button>
                 
             { showComments && (
           commentList.map (
