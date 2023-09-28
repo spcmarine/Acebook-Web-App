@@ -9,6 +9,8 @@ import './Post.css'
   const [commentInput, setCommentInput] = useState("");
   const [commentList, setCommentList] = useState([]);
   const [showComments, setShowComments] = useState(false);
+  const [userList, setUserList] = useState([]);
+  
 
 
   // We have to destructure the handleLikeSubmit because we cannot call a function
@@ -20,6 +22,12 @@ import './Post.css'
   useEffect(() => {
     if(token) {
       fetchComments();
+    }
+  }, [])
+
+  useEffect(() => {
+    if(token) {
+      fetchUsers();
     }
   }, [])
 
@@ -38,6 +46,24 @@ import './Post.css'
         setCommentList(filteredComments.reverse());
       })
   } 
+
+  const fetchUsers = () => {
+    fetch("/users", {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => response.json())
+      .then(async data => {
+        console.log(data)
+        const filteredUsers = data.user.filter((user) => user._id === post.user)
+        console.log(filteredUsers)
+        setUserList(filteredUsers);
+        
+      })
+  }
+
+  
 
   
   const handleLikeEvent = (event) => {
@@ -109,6 +135,23 @@ import './Post.css'
     }
   }
 
+    <article data-cy="post" key={ post._id }>
+      {userList.length > 0 && <p>Author: {userList[0].firstName} {userList[0].lastName}</p>}
+      { post.message } Likes: { post.likes } 
+    <button onClick={ handleLikeEvent }>Like button</button>
+    <button onClick={ handleViewCommentsEvent }>Comments</button>
+    
+    { showComments && (
+    commentList.map (
+      (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } />}
+      )
+    )}
+  
+    <form onSubmit={handleCommentEvent}>
+        <input placeholder="Write your comment here" id="newComment" type="text" value={commentInput} onChange={handleCreateComment}/>
+        <input id="submit" type="submit" value="Create Comment" />
+    </form>
+    </article>
 
   const handleDeleteCommentSubmit = async (commentObject) => {
     if(token) {
