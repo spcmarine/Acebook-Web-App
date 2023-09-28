@@ -3,35 +3,14 @@ import Post from '../post/Post';
 import Navbar from '../Navbar';
 import './Feed.css';
 import '../app/App.css'
-import axios from "axios";
+import UploadImage from '../image/Images';
 
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userEmail, setUserEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [res, setRes] = useState({});
-  const [file, setFile] = useState(null);
-
-  const handleSelectFile = (e) => setFile(e.target.files[0]); 
-  
-  const uploadFile = async (e) => {
-    setLoading(true);
-    e.preventDefault();
-    const data = new FormData();
-    data.set("sample_file", file);
-    try {
-      const res = await axios.post("/images", data);
-      // setRes(res.data);
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  const [res, setRes] = useState("");
 
   useEffect(() => {
     if(token) {
@@ -48,6 +27,7 @@ const Feed = ({ navigate }) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
+    console.log(res)
     if(token) {
       fetch("/posts", {
         method: 'POST',
@@ -55,7 +35,7 @@ const Feed = ({ navigate }) => {
           'Authorization': `Bearer ${token}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ message: message })
+        body: JSON.stringify({ message: message, url: res })
       }).then(response => {
         if(response.status === 201) {
           fetchPosts();
@@ -65,6 +45,7 @@ const Feed = ({ navigate }) => {
         }
       }).then(data => {
         setMessage("")
+        setRes("");
       })
     }
   }
@@ -128,41 +109,6 @@ const Feed = ({ navigate }) => {
               Logout
             </button> */}
 
-<div className="App">
-      <label htmlFor="file" className="btn-grey">
-        {" "}
-        select file
-      </label>
-
-      <input
-        id="file"
-        type="file"
-        onChange={handleSelectFile}
-        multiple={false}
-      />
-      {file && <p className="file_name">{file.name}</p>}
-      <code>
-        {Object.keys(res).map(
-          (key) =>
-            key && (
-              <p className="output-item" key={key}>
-                <span>{key}:</span>
-                <span>
-                  {typeof res[key] === "object" ? "object" : res[key]}
-                </span>
-              </p>
-            )
-        )}
-      </code>
-      {file && (
-        <>
-          <button className="btn-green" onClick={uploadFile}>
-            {loading ? "uploading..." : "upload to Cloudinary"}
-          </button>
-        </>
-      )}
-    </div>
-
             <div  role="document" className="container d-flex justify-content-center align-items-center p-4">
               <div className="w-75">
                 <form onSubmit={handleSubmit} className="d-flex flex-column" >
@@ -172,7 +118,12 @@ const Feed = ({ navigate }) => {
               </div>
 
             </div>
-  
+            <UploadImage setRes = { setRes } res = { res } />
+
+  {/* <div id="upload_image" UploadImage>
+
+
+  </div> */}
           
           <div id='feed' role="feed"  >   
           

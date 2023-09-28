@@ -13,7 +13,7 @@ async function handleUpload(file) {
     const res = await cloudinary.uploader.upload(file, {
     resource_type: "auto",
     });
-    console.log(res)
+    // console.log(res)
     return res;
 }
 

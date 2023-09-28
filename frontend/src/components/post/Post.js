@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Comment from '../comment/Comment.js'
 import './Post.css'
+
 const Post = ({post, handleLikeSubmit, token, setToken}) => {
   const [commentInput, setCommentInput] = useState("");
   const [commentList, setCommentList] = useState([]);
@@ -89,6 +90,7 @@ const Post = ({post, handleLikeSubmit, token, setToken}) => {
 <div className="container d-flex justify-content-center align-items-center p-4 website-font">
       <article data-cy="post" className='card d-flex text-center w-75 p-3 dark-blue-background' key={ post._id } > 
         <div className="card mb-5 ml-5 mt-5 mr-5 shadow">
+          <img alt="uploaded" src={ post.image_url } />
         <div className="col text-center text-indigo" >{post.message} </div>
         <div className="d-flex justify-content-start p-3 pb-0"> 
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#cc8b86" class="bi bi-balloon-heart-fill" viewBox="0 0 16 16">
