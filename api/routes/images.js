@@ -41,7 +41,6 @@ const config = {
 
 
 router.post("/", handler);
-// router.post("/", (req, res) => {res.status(201)});
 
 
 module.exports = router;
