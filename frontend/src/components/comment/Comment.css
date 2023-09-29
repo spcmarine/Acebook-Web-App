@@ -1,0 +1,33 @@
+/* 
+.text-indigo {
+    color: #3a405a;
+}
+
+.pink-background {
+    background-color: #cc8b86;
+}
+
+.green-background {
+    background-color: #7b9e87;
+}
+
+.light-blue-background {
+    background-color: #6ea8fe;
+}
+
+.dark-blue-background {
+    background-color: #3a405a;
+}
+
+.custom-shadow-1:hover {
+    background-color: #7b9e87;
+} */
+
+.profileImage{
+    border-radius: 50%;
+    width: 4.5em;
+    height: 4.5em;
+    margin: 0.5em;
+    padding: 0.2em;
+    box-shadow: 0.2 0.8 #fff;
+}

@@ -1,4 +1,4 @@
-
+import Feed from '../feed/Feed.js';
 import React, { useEffect, useState } from 'react';
 import Comment from '../comment/Comment.js'
 import './Post.css'
@@ -7,10 +7,10 @@ const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSub
   const [commentInput, setCommentInput] = useState("");
   const [commentList, setCommentList] = useState([]);
   const [showComments, setShowComments] = useState(false);
-
+  const [userList, setUserList] = useState([]);
   const [showEditPostForm, setShowEditPostForm] = useState(false);
   const [editPostInput, setEditPostInput] = useState("");
-  const [userList, setUserList] = useState([]);
+
 
   useEffect(() => {
     if(token) {
@@ -36,7 +36,6 @@ const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSub
       .then(async data => {
         window.localStorage.setItem("token", data.token)
         setToken(window.localStorage.getItem("token"))
-
         const filteredComments = data.comments.filter((comment) => comment.post_id === post._id)
         setCommentList(filteredComments.reverse());
       })
@@ -51,9 +50,12 @@ const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSub
     })
       .then(response => response.json())
       .then(async data => {
-        console.log(data)
+        // console.log(data)
         const filteredUsers = data.user.filter((user) => user._id === post.user)
-        console.log(filteredUsers)
+        
+
+        // console.log(filteredUsers)
+        // console.log(filteredCommentUsers)
         setUserList(filteredUsers);
         
       })
@@ -66,6 +68,7 @@ const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSub
 
 
   const handleCommentSubmit = async (post_id) => {
+    
     if(token) {
       fetch("/comments", {
         method: 'POST',
@@ -208,7 +211,7 @@ const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSub
   
   <div className="container d-flex justify-content-center align-items-center p-4 website-font">
       <article data-cy="post" className='card d-flex text-center w-75 p-3 dark-blue-background' key={ post._id } > 
-      {userList.length > 0 && <p className='text-light'>Author: <img className='profileImage' src={userList[0].profileURL} alt= "profile image" title='User Image'/> {userList[0].firstName} {userList[0].lastName}</p>}
+      {userList.length > 0 && <p className='text-light'> <img className='profileImage' src={userList[0].profileURL} alt= "profile image" title='User Image'/> {userList[0].firstName} {userList[0].lastName}</p>}
         <div className="card mb-5 ml-5 mt-5 mr-5 shadow">
           <img alt="uploaded" src={ post.image_url } />
         <div className="col text-center text-indigo" >{post.message} </div>
@@ -222,6 +225,8 @@ const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSub
           <button className="btn btn-sm pink-background custom-shadow-1" style={{ width: '70px', height: '30px' }} onClick={handleLikeEvent}>
             Heart
           </button>
+                
+           
           <button onClick={ handleViewCommentsEvent }>Comments</button>
           <button onClick={ handleViewEditPostForm }>Edit</button>
 
@@ -236,14 +241,14 @@ const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSub
                 
             { showComments && (
           commentList.map (
-            (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } handleLikeCommentSubmit={ handleLikeCommentSubmit } handleEditCommentSubmit={handleEditCommentSubmit} handleDeleteCommentSubmit={ handleDeleteCommentSubmit }/>}
+            (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } handleLikeCommentSubmit={ handleLikeCommentSubmit } handleEditCommentSubmit={handleEditCommentSubmit} handleDeleteCommentSubmit={ handleDeleteCommentSubmit } token = { token }/>}
             )
           )}
 
 
                 <form onSubmit={handleCommentEvent}>
                 <input placeholder="Write your comment here" id="newComment" type="text" value={commentInput} onChange={handleCreateComment}/>
-                <input id="submit" type="submit" value="Create Comment" />
+                <input className='btn btn-success' id="submit" type="submit" value="Create Comment"  />
             </form>
         </div>
         </div>

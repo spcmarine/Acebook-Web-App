@@ -12,7 +12,8 @@ const CommentsController = {
         })
     },
     Create: (req, res) => {
-        const comment = new Comment(req.body);
+        const comment = new Comment({
+            message: req.body.message, post_id: req.body.post_id, user_id: req.user_id});
         comment.save((err) => {
             if (err) {
                 res.status(400).json({ message: 'Bad request' });
