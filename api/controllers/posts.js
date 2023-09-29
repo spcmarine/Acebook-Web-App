@@ -12,7 +12,6 @@ const PostsController = {
     });
   },
   Create: (req, res) => {
-    console.log(req.body)
     const post = new Post(
       {
         message: req.body.message,
