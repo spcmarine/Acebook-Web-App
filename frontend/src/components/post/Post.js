@@ -11,15 +11,6 @@ const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSub
   const [showEditPostForm, setShowEditPostForm] = useState(false);
   const [editPostInput, setEditPostInput] = useState("");
   const [userList, setUserList] = useState([]);
-  
-
-
-
-  // We have to destructure the handleLikeSubmit because we cannot call a function
-  // from a parent component passed down
-  // We have to define a new function which handles the event of the button
-  // being pressed and then call the parent component function
-  // We can also pass in post as that has been destructured as well for us to use on Line 3
 
   useEffect(() => {
     if(token) {
@@ -219,6 +210,7 @@ const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSub
       <article data-cy="post" className='card d-flex text-center w-75 p-3 dark-blue-background' key={ post._id } > 
       {userList.length > 0 && <p className='text-light'>Author: <img className='profileImage' src={userList[0].profileURL} alt= "profile image" title='User Image'/> {userList[0].firstName} {userList[0].lastName}</p>}
         <div className="card mb-5 ml-5 mt-5 mr-5 shadow">
+          <img alt="uploaded" src={ post.image_url } />
         <div className="col text-center text-indigo" >{post.message} </div>
         <div className="d-flex justify-content-start p-3 pb-0"> 
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#cc8b86" class="bi bi-balloon-heart-fill" viewBox="0 0 16 16">

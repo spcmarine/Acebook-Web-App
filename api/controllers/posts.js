@@ -16,7 +16,8 @@ const PostsController = {
       {
         message: req.body.message,
         user: req.user_id,
-        likes: 0
+        likes: 0,
+        image_url: req.body.url
       })
     post.save((err) => {
       if (err) {

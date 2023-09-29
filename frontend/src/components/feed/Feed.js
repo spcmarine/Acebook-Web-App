@@ -3,13 +3,14 @@ import Post from '../post/Post';
 import Navbar from '../Navbar';
 import './Feed.css';
 import '../app/App.css'
+import UploadImage from '../image/Images';
 
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [userEmail, setUserEmail] = useState("");
-
+  const [res, setRes] = useState("");
 
   useEffect(() => {
     if(token) {
@@ -26,6 +27,7 @@ const Feed = ({ navigate }) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
+    console.log(res)
     if(token) {
       fetch("/posts", {
         method: 'POST',
@@ -33,7 +35,7 @@ const Feed = ({ navigate }) => {
           'Authorization': `Bearer ${token}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ message: message })
+        body: JSON.stringify({ message: message, url: res })
       }).then(response => {
         if(response.status === 201) {
           fetchPosts();
@@ -44,6 +46,7 @@ const Feed = ({ navigate }) => {
         }
       }).then(data => {
         setMessage("")
+        setRes("");
       })
     }
   }
@@ -90,7 +93,6 @@ const Feed = ({ navigate }) => {
     }
   }
 
-
   const handleEditPostSubmit = async (newPost, postObject) => {
     if(token) {
       fetch("/posts/posts", {
@@ -132,7 +134,7 @@ const Feed = ({ navigate }) => {
       })
     }
   }
-
+  
 
     if(token) {                                 //change to name
       return(
@@ -151,6 +153,7 @@ const Feed = ({ navigate }) => {
 
             <div  role="document" className="container d-flex justify-content-center align-items-center p-4">
               <div className="w-75">
+              <UploadImage setRes = { setRes } res = { res } />
                 <form onSubmit={handleSubmit} className="d-flex flex-column" >
                   <input placeholder="Write your message here" className="form-control" id="newPost"  type="text" value= { message } onChange={handleCreatePost} /> 
                   <input id="submit" type="submit" className="btn mt-1 powder-blue-background custom-shadow-2" style={{ color: '#fffbff' }} value="Create Post" />
@@ -158,7 +161,7 @@ const Feed = ({ navigate }) => {
               </div>
 
             </div>
-  
+            
           
           <div id='feed' role="feed"  >   
           
