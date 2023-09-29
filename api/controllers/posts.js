@@ -22,23 +22,43 @@ const PostsController = {
       })
     post.save((err) => {
       if (err) {
-        throw err;
-      }
-
-      const token = TokenGenerator.jsonwebtoken(req.user_id)
-      res.status(201).json({ message: 'OK', token: token });
-    });
+        res.status(400).json({ message: 'Bad request' });
+      } else {
+          const token = TokenGenerator.jsonwebtoken(req.user_id)
+          res.status(201).json({ message: "OK", token: token });
+        }
+      })
   },
-
   upVote: (req, res) => {
     const filter = req.body.likedPost._id
     console.log(filter)
-    Post.findByIdAndUpdate(filter, { $inc: {likes: 1} })
+    Post.updateOne({ _id: filter }, { $inc: {likes: 1} })
     .then(post => {
-      post.save()
       const token = TokenGenerator.jsonwebtoken(req.user_id)
       res.status(201).json({ message: 'OK', token: token });
     })
+  },
+  Delete: (req, res) => {
+    const filter = req.body.post._id
+    console.log(filter)
+    Post.deleteOne({ _id: filter })
+    .then(post => {
+      const token = TokenGenerator.jsonwebtoken(req.user_id)
+      res.status(201).json({ message: 'OK', token: token });
+    })
+  },
+  Edit: (req, res) => {
+    const filter = req.body.post._id
+    const newMessage = req.body.message
+    if (newMessage === '') {
+      res.status(400).json({ message: 'Bad Request' })
+    } else {
+      Post.updateOne({ _id: filter }, { message: newMessage })
+      .then(post => {
+          const token = TokenGenerator.jsonwebtoken(req.user_id)
+          res.status(201).json({ message: 'OK', token: token })
+      })
+    }
   }
 };
 
