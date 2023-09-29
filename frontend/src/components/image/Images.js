@@ -16,10 +16,8 @@ const UploadImage = ({ navigate, setRes, handleSubmit, res }) => {
     try {
       const response = await axios.post("/images", data);
       setRes(response.data.secure_url);
-      // handleImageSubmit(e);
-      // console.log(res.data.url);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -39,19 +37,7 @@ const UploadImage = ({ navigate, setRes, handleSubmit, res }) => {
         multiple={false}
       />
       {file && <p className="file_name"></p>}
-      {/* <code>
-        {Object.keys(res).map(
-          (key) =>
-            key && (
-              <p className="output-item" key={key}>
-                <span>{key}:</span>
-                <span>
-                  {typeof res[key] === "object" ? "object" : res[key]}
-                </span>
-              </p>
-            )
-        )} */}
-      {/* </code> */}
+      
       {file && (
         <>
           <button className="btn-green" onClick={uploadFile}>
