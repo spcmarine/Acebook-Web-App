@@ -3,22 +3,14 @@ import React, { useEffect, useState } from 'react';
 import Comment from '../comment/Comment.js'
 import './Post.css'
 
-  const Post = ({post, handleLikeSubmit, handleDeletePostSubmit, token, setToken}) => {
-
-
+const Post = ({post, handleLikeSubmit, handleEditPostSubmit, handleDeletePostSubmit, token, setToken}) => {
   const [commentInput, setCommentInput] = useState("");
   const [commentList, setCommentList] = useState([]);
   const [showComments, setShowComments] = useState(false);
   const [userList, setUserList] = useState([]);
+  const [showEditPostForm, setShowEditPostForm] = useState(false);
+  const [editPostInput, setEditPostInput] = useState("");
 
-  
-
-
-  // We have to destructure the handleLikeSubmit because we cannot call a function
-  // from a parent component passed down
-  // We have to define a new function which handles the event of the button
-  // being pressed and then call the parent component function
-  // We can also pass in post as that has been destructured as well for us to use on Line 3
 
   useEffect(() => {
     if(token) {
@@ -26,11 +18,13 @@ import './Post.css'
     }
   }, [])
 
+
   useEffect(() => {
     if(token) {
       fetchUsers();
     }
   }, [])
+
 
   const fetchComments = () => {
     fetch("/comments", {
@@ -46,6 +40,7 @@ import './Post.css'
         setCommentList(filteredComments.reverse());
       })
   } 
+
 
   const fetchUsers = () => {
     fetch("/users", {
@@ -67,11 +62,10 @@ import './Post.css'
   }
 
   
-
-  
   const handleLikeEvent = (event) => {
     handleLikeSubmit(post)
   }
+
 
   const handleCommentSubmit = async (post_id) => {
     
@@ -102,6 +96,28 @@ import './Post.css'
     } else {
       setShowComments(false);
     }
+  }
+
+
+  const handleViewEditPostForm = (event) => {
+    if (showEditPostForm === false) {
+        setShowEditPostForm(true);
+    } else {
+        setShowEditPostForm(false);
+    }
+  }
+
+
+  const handleEditPostEvent = (event) => {
+    setEditPostInput(event.target.value);
+  }
+
+
+  const handleEditPostSubmitForm = (event) => {
+    event.preventDefault()
+
+    handleEditPostSubmit(editPostInput, post);
+    setEditPostInput('');
   }
 
 
@@ -139,6 +155,31 @@ import './Post.css'
     }
   }
 
+
+
+  const handleEditCommentSubmit = async (newComment, commentObject) => {
+    if(token) {
+      fetch("/comments/comments", {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: newComment, comment: commentObject })
+      }).then(response => {
+        if(response.status === 201) {
+          fetchComments();
+          console.log('Comment has been successfully edited');
+        } else {
+          alert('Error: Please enter a message');
+          console.log('Something went wrong, comment was not edited');
+        }
+      })
+    }
+  }
+
+
+
   const handleDeleteCommentSubmit = async (commentObject) => {
     if(token) {
       fetch('/comments', {
@@ -172,6 +213,7 @@ import './Post.css'
       <article data-cy="post" className='card d-flex text-center w-75 p-3 dark-blue-background' key={ post._id } > 
       {userList.length > 0 && <p className='text-light'> <img className='profileImage' src={userList[0].profileURL} alt= "profile image" title='User Image'/> {userList[0].firstName} {userList[0].lastName}</p>}
         <div className="card mb-5 ml-5 mt-5 mr-5 shadow">
+          <img alt="uploaded" src={ post.image_url } />
         <div className="col text-center text-indigo" >{post.message} </div>
         <div className="d-flex justify-content-start p-3 pb-0"> 
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#cc8b86" class="bi bi-balloon-heart-fill" viewBox="0 0 16 16">
@@ -183,14 +225,26 @@ import './Post.css'
           <button className="btn btn-sm pink-background custom-shadow-1" style={{ width: '70px', height: '30px' }} onClick={handleLikeEvent}>
             Heart
           </button>
-          <button className='btn btn-primary' onClick={ handleViewCommentsEvent }>Comments</button>
-          <button className='btn btn-primary'  onClick={ handleDeleteEvent }>Delete</button>
+                
+           
+          <button onClick={ handleViewCommentsEvent }>Comments</button>
+          <button onClick={ handleViewEditPostForm }>Edit</button>
+
+          { showEditPostForm && 
+            <form onSubmit={ handleEditPostSubmitForm }>
+            <input placeholder="Write your post here" id="newPost" type="text" value={ editPostInput } onChange={ handleEditPostEvent }/>
+            <input id="submit" type="submit" value="Submit" />
+            </form>
+          }
+
+          <button onClick={ handleDeleteEvent }>Delete</button>
                 
             { showComments && (
           commentList.map (
-            (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } handleLikeCommentSubmit={ handleLikeCommentSubmit } handleDeleteCommentSubmit={ handleDeleteCommentSubmit } token = {token}/>}
+            (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } handleLikeCommentSubmit={ handleLikeCommentSubmit } handleEditCommentSubmit={handleEditCommentSubmit} handleDeleteCommentSubmit={ handleDeleteCommentSubmit } token = { token }/>}
             )
           )}
+
 
                 <form onSubmit={handleCommentEvent}>
                 <input placeholder="Write your comment here" id="newComment" type="text" value={commentInput} onChange={handleCreateComment}/>

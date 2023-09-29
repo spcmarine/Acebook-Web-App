@@ -16,7 +16,8 @@ const PostsController = {
       {
         message: req.body.message,
         user: req.user_id,
-        likes: 0
+        likes: 0,
+        image_url: req.body.url
       })
     post.save((err) => {
       if (err) {
@@ -44,6 +45,19 @@ const PostsController = {
       const token = TokenGenerator.jsonwebtoken(req.user_id)
       res.status(201).json({ message: 'OK', token: token });
     })
+  },
+  Edit: (req, res) => {
+    const filter = req.body.post._id
+    const newMessage = req.body.message
+    if (newMessage === '') {
+      res.status(400).json({ message: 'Bad Request' })
+    } else {
+      Post.updateOne({ _id: filter }, { message: newMessage })
+      .then(post => {
+          const token = TokenGenerator.jsonwebtoken(req.user_id)
+          res.status(201).json({ message: 'OK', token: token })
+      })
+    }
   }
 };
 
