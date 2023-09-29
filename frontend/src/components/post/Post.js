@@ -10,6 +10,7 @@ import './Post.css'
   const [commentList, setCommentList] = useState([]);
   const [showComments, setShowComments] = useState(false);
   const [userList, setUserList] = useState([]);
+
   
 
 
@@ -41,7 +42,6 @@ import './Post.css'
       .then(async data => {
         window.localStorage.setItem("token", data.token)
         setToken(window.localStorage.getItem("token"))
-        
         const filteredComments = data.comments.filter((comment) => comment.post_id === post._id)
         setCommentList(filteredComments.reverse());
       })
@@ -55,9 +55,12 @@ import './Post.css'
     })
       .then(response => response.json())
       .then(async data => {
-        console.log(data)
+        // console.log(data)
         const filteredUsers = data.user.filter((user) => user._id === post.user)
-        console.log(filteredUsers)
+        
+
+        // console.log(filteredUsers)
+        // console.log(filteredCommentUsers)
         setUserList(filteredUsers);
         
       })
@@ -167,7 +170,7 @@ import './Post.css'
   
   <div className="container d-flex justify-content-center align-items-center p-4 website-font">
       <article data-cy="post" className='card d-flex text-center w-75 p-3 dark-blue-background' key={ post._id } > 
-      {userList.length > 0 && <p className='text-light'>Author: <img className='profileImage' src={userList[0].profileURL} alt= "profile image" title='User Image'/> {userList[0].firstName} {userList[0].lastName}</p>}
+      {userList.length > 0 && <p className='text-light'> <img className='profileImage' src={userList[0].profileURL} alt= "profile image" title='User Image'/> {userList[0].firstName} {userList[0].lastName}</p>}
         <div className="card mb-5 ml-5 mt-5 mr-5 shadow">
         <div className="col text-center text-indigo" >{post.message} </div>
         <div className="d-flex justify-content-start p-3 pb-0"> 
@@ -185,7 +188,7 @@ import './Post.css'
                 
             { showComments && (
           commentList.map (
-            (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } handleLikeCommentSubmit={ handleLikeCommentSubmit } handleDeleteCommentSubmit={ handleDeleteCommentSubmit }/>}
+            (comment) => {return <Comment post={ post } key= { comment._id } handleCommentSubmit={ handleCommentSubmit } handleCreateComment={ handleCreateComment } comment={ comment } commentInput={ commentInput } handleLikeCommentSubmit={ handleLikeCommentSubmit } handleDeleteCommentSubmit={ handleDeleteCommentSubmit } token = {token}/>}
             )
           )}
 
