@@ -58,18 +58,20 @@ const Comment = ({comment, handleLikeCommentSubmit, handleEditCommentSubmit, han
 
 
     return(
-        <article> {userList.length > 0 && <p className='text-dark'> <img className='profileImage' src={userList[0].profileURL} alt= "profile image" title='User Image'/> {userList[0].firstName} {userList[0].lastName}</p>} {comment.message} Likes: {comment.likes}
-        <button onClick={ handleLikeEvent }>Like</button>
-        <button onClick={ handleViewEditForm }>Edit Comment</button>
+        <article className="modal-body"> {userList.length > 0 && <p className='text-dark'> <img className='profileImage' src={userList[0].profileURL} alt= "profile image" title='User Image'/> {userList[0].firstName} {userList[0].lastName}</p>} {comment.message} Likes: {comment.likes}
+        <div className="fluid-container">
+          <button className="pink-background btn shadow mood pill change" onClick={ handleLikeEvent }>Like</button>
+          <button className="dark-blue-background btn shadow mood pill change" onClick={ handleViewEditForm }>Edit Comment</button>
 
-        { showEditForm && 
-            <form onSubmit={ handleEditCommentSubmitForm }>
-            <input placeholder="Write your comment here" id="newComment" type="text" value={ editCommentInput } onChange={ handleEditCommentEvent }/>
-            <input id="submit" type="submit" value="Submit" />
-            </form>
-        }
+          { showEditForm && 
+              <form onSubmit={ handleEditCommentSubmitForm }>
+              <input placeholder="Write your comment here" id="newComment" type="text" value={ editCommentInput } onChange={ handleEditCommentEvent }/>
+              <input id="submit" type="submit" value="Submit" />
+              </form>
+          }
 
-        <button onClick={ handleDeleteEvent }>Delete</button>
+          <button className="light-blue-background btn shadow mood pill change"  onClick={ handleDeleteEvent }>Delete</button>
+        </div>
         </article>
     )
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
+import "./Images.css";
 
 const UploadImage = ({ navigate, setRes, handleSubmit, res }) => {
 
@@ -26,11 +27,11 @@ const UploadImage = ({ navigate, setRes, handleSubmit, res }) => {
   return(
 
 <div className="App">
-      <label htmlFor="file" className="btn-grey">
+      <label htmlFor="file" >
         Select an image for your post 
       </label>
       <br></br>
-      <input
+      <input 
         id="file"
         type="file"
         onChange={handleSelectFile}
@@ -40,7 +41,7 @@ const UploadImage = ({ navigate, setRes, handleSubmit, res }) => {
       
       {file && (
         <>
-          <button className="btn-green" onClick={uploadFile}>
+          <button className="button" onClick={uploadFile}>
             {loading ? "uploading..." : "Upload your image"}
           </button>
         </>

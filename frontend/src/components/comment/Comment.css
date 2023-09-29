@@ -1,8 +1,39 @@
-/* 
+
+
+.profileImage{
+    border-radius: 50%;
+    width: 4.5em;
+    height: 4.5em;
+    margin: 0.5em;
+    padding: 0.2em;
+    box-shadow: 0.2 0.8 #fff;
+}
+
+.change:hover {
+    transition:all 300ms ease-in-out;
+    background-color: aqua;
+    color: indigo;
+}
+
 .text-indigo {
     color: #3a405a;
 }
 
+.tdr {
+    border: solid 2px #3a405a;
+}
+
+.pill {
+    padding: 0.8em 1.6em 0.8em 1.6em;
+}
+
+.mood {
+    margin: 1em 0.5em 1em 0.5em;
+}
+
+.shadow-pink {
+    box-shadow: 1px 2px 3px #cc8b86;
+}
 .pink-background {
     background-color: #cc8b86;
 }
@@ -21,7 +52,11 @@
 
 .custom-shadow-1:hover {
     background-color: #7b9e87;
-} */
+}
+
+.pink {
+    color: #cc8b86;
+}
 
 .profileImage{
     border-radius: 50%;
@@ -29,5 +64,26 @@
     height: 4.5em;
     margin: 0.5em;
     padding: 0.2em;
-    box-shadow: 0.2 0.8 #fff;
+    box-shadow: 0.2px 0.8px 6px #fff;
 }
+
+.post-image {
+    border-radius: 12px;
+    box-shadow: 1px 2px 6px #000;
+}
+
+@media (min-width: 900px) {
+    .post-image {
+        width: 60%;
+        height: 60%;
+    }
+}
+
+@media (max-width: 900px) {
+    .post-image {
+        width: 30%;
+        height: 30%;
+    }
+}
+
+
