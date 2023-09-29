@@ -111,6 +111,7 @@ const Feed = ({ navigate }) => {
 
             <div  role="document" className="container d-flex justify-content-center align-items-center p-4">
               <div className="w-75">
+              <UploadImage setRes = { setRes } res = { res } />
                 <form onSubmit={handleSubmit} className="d-flex flex-column" >
                   <input placeholder="Write your message here" className="form-control" id="newPost"  type="text" value= { message } onChange={handleCreatePost} /> 
                   <input id="submit" type="submit" className="btn mt-1 powder-blue-background custom-shadow-2" style={{ color: '#fffbff' }} value="Create Post" />
@@ -118,12 +119,7 @@ const Feed = ({ navigate }) => {
               </div>
 
             </div>
-            <UploadImage setRes = { setRes } res = { res } />
-
-  {/* <div id="upload_image" UploadImage>
-
-
-  </div> */}
+            
           
           <div id='feed' role="feed"  >   
           

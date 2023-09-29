@@ -29,17 +29,16 @@ const UploadImage = ({ navigate, setRes, handleSubmit, res }) => {
 
 <div className="App">
       <label htmlFor="file" className="btn-grey">
-        {" "}
-        select file
+        Select an image for your post 
       </label>
-
+      <br></br>
       <input
         id="file"
         type="file"
         onChange={handleSelectFile}
         multiple={false}
       />
-      {file && <p className="file_name">{file.name}</p>}
+      {file && <p className="file_name"></p>}
       {/* <code>
         {Object.keys(res).map(
           (key) =>
@@ -56,7 +55,7 @@ const UploadImage = ({ navigate, setRes, handleSubmit, res }) => {
       {file && (
         <>
           <button className="btn-green" onClick={uploadFile}>
-            {loading ? "uploading..." : "upload to Cloudinary"}
+            {loading ? "uploading..." : "Upload your image"}
           </button>
         </>
       )}

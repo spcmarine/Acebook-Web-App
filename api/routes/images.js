@@ -9,10 +9,8 @@ const myUploadMiddleware = upload.single("sample_file");
 
 
 function runMiddleware(req, res, fn) {
-    console.log(fn)
     return new Promise((resolve, reject) => {
         fn(req, res, (result) => {
-          console.log(result)
         if (result instanceof Error) {
             return reject(result);
         }
@@ -27,10 +25,8 @@ const handler = async (req, res) => {
         const b64 = Buffer.from(req.file.buffer).toString("base64");
         let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
         const cldRes = await handleUpload(dataURI);
-        // console.log(cldRes);
         res.json(cldRes);
     } catch (error) {
-        // console.log("HERE!");
         res.send({
         message: error.message,
         });
